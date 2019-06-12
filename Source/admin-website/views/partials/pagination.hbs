@@ -1,0 +1,17 @@
+
+<h5>Pagination come here</h5>
+<div>
+
+{{#ifCond 0 prevPages}}
+    <a href="/items/list/?page=1"><<</a>
+{{/ifCond}}
+
+{{#forLoop pageStart pageEnd}}
+    <a href="/items/list/?page={{this}}">{{this}}</a>
+{{/forLoop}}
+
+{{#ifCond nextPages numPages}}
+    <a href="/items/list/?page={{numPages}}">>></a>
+{{/ifCond}}
+
+</div>

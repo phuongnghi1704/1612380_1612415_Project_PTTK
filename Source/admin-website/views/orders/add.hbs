@@ -1,0 +1,120 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+    {{> nav-bars}}
+
+</nav>
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    {{>sidebar}}
+
+    <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">{{pageTitle}}</li>
+            </ol>
+
+
+
+            <!-- Page Content -->
+
+            <div class="modal-body">
+                <div class="row content">
+                    <div class="col-sm-12">
+                        <form method="POST" enctype="multipart/form-data" action="/admin/quanlysanpham/add" class="form-horizontal">
+                            <div class="panel panel-success">
+                                <div class="panel-heading" style="font-size: 25px;font-weight: bold; background-color: rgb(28, 188, 156);color: white"> &nbsp;{{pageTitle}}</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md">
+                                            <div class="form-group">
+                                                <label for="tesp" class="col-md-4 control-label">Mã đơn hàng</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" id="tesp" name="tesp" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="tesp" class="col-md-4 control-label">Mã sản phẩm</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" id="tesp" name="tesp" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="xux" class="col-md-4 control-label">Khách hàng</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" id="xux" name="xux" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tesp" class="col-md-4 control-label">Ngày lập</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" id="tesp" name="tesp" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="tesp" class="col-md-4 control-label">Tổng tiền</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" id="tesp" name="tesp" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="file" class="col-md-4 control-label">Trạng thái</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" id="tesp" name="tesp" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="row">
+                                        <button type="submit" class="btn btn-default" style="float: right;margin-right: 120px;background-color: rgb(28, 188, 156);font-size: 16px;color: white" onclick="add()">Thêm mới</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright © Your Website 2019</span>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+{{>logout}}
+
+{{> js }}
