@@ -36,7 +36,7 @@ body { font-family:Roboto Condensed, Helvetica, sans-serif; }
     background: none repeat scroll 0 0 #2f333a;
 }
 .header-area a {
-    color: #888;
+    color: #e70d0d;
 }
 .user-menu ul {
     list-style: outside none none;
@@ -370,6 +370,7 @@ z-index: 999;}
   font-weight: 400;
   margin-bottom: 50px;
   text-align: center;
+  color: #e70d0d
 }
 
 
@@ -496,6 +497,7 @@ z-index: 999;}
   font-size: 30px;
   font-weight: 500;
   margin-bottom: 40px;
+  color:#e70d0d;
 }
 
 
@@ -1188,7 +1190,7 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
 .block-slider .title{
     display: flex;
     justify-content: center;
-    color:#222;
+    color:#e70d0d;
     font-weight: 700;
     text-decoration: none;
     margin-top: 10px;
