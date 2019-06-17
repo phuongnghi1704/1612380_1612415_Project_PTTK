@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongoDB = 'mongodb+srv://dragon-straight:8910JQKA@cluster0-dqpzz.mongodb.net/e-commerce';
+const mongoDB = 'mongodb+srv://admin:123@cluster0-apxng.mongodb.net/test';
 
 const Manufacturer = require('../models/manufacturer');
 const productDao = require('../models/dao/productDao');

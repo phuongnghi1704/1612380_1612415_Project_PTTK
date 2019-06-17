@@ -7,6 +7,8 @@ const customerSchema = new Schema({
     username: String,
     password: String,
     email: String,
+    resetPasswordToken:{type:String,default : randomstring.generate(17)},
+    resetPasswordExpires:{type: Date, default: Date.now()},
     secretToken: {type:String,default : randomstring.generate(6)},
     isActive: {type: Boolean, default: false},
     info: {

@@ -1,23 +1,26 @@
 const Customer = require('../models/customer');
 const customerDao = require('../models/dao/customerDao');
 const productDao = require('../models/dao/productDao');
-const mongoDB = 'mongodb+srv://dragon-straight:8910JQKA@cluster0-dqpzz.mongodb.net/e-commerce';
+const mongoDB = 'mongodb+srv://admin:123@cluster0-apxng.mongodb.net/test';
 const Cart = require('../models/cart');
 const Order = require('../models/order');
 var mongoose = require('mongoose');
 var async = require('async');
 const passport = require('passport');
-const randomstring= require('randomstring')
-const sendMail=require('../misc/mailer')
+const randomstring= require('randomstring');
+const sendMail=require('../misc/mailer');
+const Product = require('../models/product');
+
 
 exports.forgotPassword_index = function(req, res){
-    res.render('customer/forgotPassword', { pageTitle: 'Phục hồi mật khẩu' });
+    res.render('customer/forgotPassword', { pageTitle: 'Phục hồi mật khẩu' 
+});
 };
 
 exports.customer_orders = async function(req, res) {
     const manufacturer = productDao.get_Manufacturer();
     const category = productDao.get_Category();
-    Order.find({customer: req.user, isAvailable: false},function(err,orders){
+    /*Order.find({customer: req.user},async function(err,orders){
         if(err){
             res.render('customer/orders', {
                 pageTitle: 'Các đơn hàng',
@@ -25,10 +28,9 @@ exports.customer_orders = async function(req, res) {
                 categoryList: category,
                 curCustomer: req.user,
             });
-            return;
         }
         var cart;
-        orders.forEach(function(order){
+        await orders.forEach(function(order){
             cart = new Cart(order.cart);
             order.items = cart.generateArray();
         });
@@ -39,7 +41,42 @@ exports.customer_orders = async function(req, res) {
             curCustomer: req.user,
             orders: orders
         });
-    });
+    });*/
+    const orders = await Order.find({customer: req.user}).sort({created: -1});
+    if(orders){
+        var cart;
+        await orders.forEach(function(order){
+            cart = new Cart(order.cart);
+            order.items = cart.generateArray();
+        });
+        res.render('customer/orders', {
+            pageTitle: 'Các đơn hàng',
+            manufacturerList: manufacturer,
+            categoryList: category,
+            curCustomer: req.user,
+            orders: orders
+        });
+    }
+    else
+    {
+        res.render('customer/orders', {
+            pageTitle: 'Các đơn hàng',
+            manufacturerList: manufacturer,
+            categoryList: category,
+            curCustomer: req.user,
+        });
+    }
+};
+
+exports.order_getCartInfo = async function(req,res){
+    const cartInfo = await Order.findById(req.params.id,'cart');
+    console.log(cartInfo);
+    res.json(cartInfo);
+};
+
+exports.order_getReceiverInfo = async function(req,res){
+    const receiverInfo = await Order.findById(req.params.id,'name address email sdt');
+    res.json(receiverInfo);
 };
 
 exports.checkout_get = function(req, res){
@@ -88,12 +125,11 @@ exports.checkout_post = function(req, res){
             cart: cart,
             payment:'Credit card',
             paymentStripeId: charge.id,
-            created: Date.now(),
+            created: new Date().toLocaleDateString(),
             name: req.body.name,
             address: req.body.address,
             email: req.body.email,
             sdt: req.body.sdt,
-            isDeleted: false,
             status: 'Chưa giao'
         });
 
@@ -101,6 +137,12 @@ exports.checkout_post = function(req, res){
             req.flash('success','Giao dịch thành công !! Cám ơn bạn :D !!');
             req.session.cart = null;
             res.redirect('/thankyou');
+        });
+
+        //add sale to product
+        const productsInOrder = cart.generateArray();
+        productsInOrder.forEach(  async function(product){
+            await Product.findByIdAndUpdate(product.item._id,{$inc: {sale: product.qty}});
         });
     });
 };
@@ -126,12 +168,11 @@ exports.checkoutCOD_post = function(req,res,){
         customer: req.user._id,
         cart: cart,
         payment:'Ship COD',
-        created: Date.now(),
+        created: new Date().toLocaleDateString(),
         name: req.body.name,
         address: req.body.address,
         email: req.body.email,
         sdt: req.body.sdt,
-        isDeleted: false,
         status: 'Chưa giao'
     });
 
@@ -140,6 +181,11 @@ exports.checkoutCOD_post = function(req,res,){
         req.flash('success','Giao dịch thành công !! Cám ơn bạn :D!!');
         req.session.cart = null;
         res.redirect('/thankyou');
+    });
+
+    const productsInOrder = cart.generateArray();
+    productsInOrder.forEach(  async function(product){
+        await Product.findByIdAndUpdate(product.item._id,{$inc: {sale: product.qty}});
     });
 };
 
@@ -151,23 +197,16 @@ exports.thank_you = function(req,res){
     })
 };
 
-exports.userInfoUpdate_index = function(req, res){
-    res.render('customer/userInfoUpdate', { pageTitle: 'Cập nhật thông tin tài khoản' });
-};
-
 exports.customer_register_get =  function(req, res){
-    const text='Nếu tài khoản của bạn sử dụng gmail, xin hãy vào trang web sau đây để mở quyền truy cập để chúng tôi có thể gửi mail cho bạn: https://myaccount.google.com/u/1/lesssecureapps?pageId=none'
     res.render('customer/register', {
         pageTitle: 'Đăng ký',
-        text:text
     });
 };
 
 exports.customer_check_username = async (req,res)=>{
     let check = {isAvailable: false};
     const foundUsername = await Customer.findOne({username: req.body.username});
-
-    if(foundUsername)
+    if(foundUsername )
     {
         check.isAvailable = true;
     }
@@ -175,6 +214,13 @@ exports.customer_check_username = async (req,res)=>{
 };
 
 exports.customer_register_post = async function(req, res){
+    if(await Customer.findOne({email: req.body.email}))
+    {
+        res.render('customer/register', {
+            pageTitle: 'Đăng ký',
+            errorMsg: 'Email này đã được dùng'
+        });
+    }
     await mongoose.connect(mongoDB, function (error) {
         if (error)
             throw error;
@@ -201,21 +247,23 @@ exports.customer_register_post = async function(req, res){
             Cám ơn vì đã tạo tài khoản.
             Vui lòng xác thực email bằng cách nhập đoạn mã:  ${secretToken}
             Vào trang: http://localhost:3000/verify
-            Chúc một ngày tốt lành.`
+            Chúc một ngày tốt lành.`;
             sendMail(customer.email,'Verify',html,function(err,data){
-                if (err) throw err
+                if (err) throw err;
                 req.flash(
                     'success_msg',
                     'Hãy kiểm tra email của bạn'
                 );
                 res.redirect('login');
-            });        
+            });
         });
     });
 };
 
+
 exports.customer_updateProfile_get = function(req, res) {
-    res.render('customer/updateProfile', { pageTitle: 'Chỉnh sửa thông tin'});
+    res.render('customer/updateProfile', { pageTitle: 'Chỉnh sửa thông tin',curCustomer: req.user
+});
 };
 
 exports.customer_updateProfile_post = function(req, res) {
@@ -238,7 +286,7 @@ exports.customer_updateProfile_post = function(req, res) {
 
 exports.customer_verify_get=function (req,res){
     res.render('customer/verify');
-}
+};
 
 exports.customer_verify_post= async function (req,res,next) {
     try{
@@ -248,7 +296,7 @@ exports.customer_verify_post= async function (req,res,next) {
     if(!customer) {
         req.flash('error','Không thấy người dùng');
         res.redirect('verify');
-        return
+        return;
     }
 
     customer.isActive=true;
@@ -267,6 +315,100 @@ exports.customer_verify_post= async function (req,res,next) {
     }
 };
 
-exports.customer_resetPassword = function(req, res) {
+exports.customer_resetPassword = async function(req, res) {
+    try{
+        const customer=await Customer.findOne({email:req.body.inputEmail});
+        if(!customer) {
+            req.flash('error','Không thấy người dùng');
+            res.redirect('forgotPassword');
+        }
+        const resetToken=randomstring.generate(17);
+        customer.resetPasswordToken=resetToken;
+        customer.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+        customer.save(function(err){
+            if (err) throw err
+            else{ const html=`Chào bạn,          
+            Vui lòng vào trang: http://localhost:3000/resetPassword/${resetToken} để cài đặt lại password mới
+            Chúc một ngày tốt lành.`
+            sendMail(customer.email,'Reset mật khẩu',html,function(err,data){
+                if (err) throw err;
+                req.flash(
+                    'success_msg',
+                    'Yêu cầu đặt lại mật khẩu đã gửi tới email của bạn.'
+                );
+                res.redirect('login');}
+            )}}   )     
+        }
+    catch(err)
+    {
+        throw err
+    }
 
 };
+
+exports.customer_reset_get=function(req,res)
+{
+    try{
+        Customer.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+            if (!user) {
+              req.flash('error', 'Mã reset không tồn tại hoặc đã hết hạn');
+              return res.redirect('../forgotPassword');
+            }
+            res.render('customer/resetPassword', {
+            });
+          });
+    }
+    catch(err)
+    {
+        next(err);
+    }}
+
+exports.customer_reset_post= async function(req,res)
+{
+          Customer.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } },async function(err, customer) {
+            if (!customer) {
+              return res.redirect('forgotPassword');
+            }
+            customer.password = customer.generateHash(req.body.password);
+            customer.resetPasswordToken = undefined;
+            customer.resetPasswordExpires = undefined;
+    
+            await customer.save();
+            req.flash(
+                'success_msg',
+                'Mật khẩu của bạn đã được đặt lại'
+            );
+            res.redirect('/')
+             }
+          
+            )
+}
+
+exports.changepassword_get=function(req,res)
+{
+    res.render('customer/changePassword',{pageTitle:'Thay đổi mật khẩu'});
+}
+
+exports.changepassword_post=async function(req,res)
+{
+    const customer= await Customer.findById(req.user._id);
+    const oldPass=req.body.oldPassword;
+    const newPass=req.body.newPassword;
+    if (!customer.validPassword(oldPass)){
+        req.flash(
+            'error',
+            'Mật khẩu cũ không đúng'
+        );
+        return res.redirect('changePassword');
+    }
+    else{
+       customer.password = customer.generateHash(newPass);
+        await customer.save();
+        req.flash(
+            'success_msg',
+            'Mật khẩu của bạn đã đổi thành công'
+        );
+        res.redirect('/')
+    }
+
+}

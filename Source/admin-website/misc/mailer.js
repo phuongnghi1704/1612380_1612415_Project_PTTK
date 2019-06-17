@@ -1,5 +1,4 @@
 const nodemailer=require('nodemailer');
-const nodemailMailGun=require('nodemailer-mailgun-transport');
 const config =require('../config/mailer');
 
 const auth= {

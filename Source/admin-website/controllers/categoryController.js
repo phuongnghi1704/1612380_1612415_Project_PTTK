@@ -1,12 +1,8 @@
 const mongoose = require('mongoose');
-const mongoDB = 'mongodb+srv://dragon-straight:8910JQKA@cluster0-dqpzz.mongodb.net/e-commerce';
+const mongoDB = 'mongodb+srv://admin:123@cluster0-apxng.mongodb.net/test';
 const Category = require('../models/category');
 const productDao = require('../models/dao/productDao');
 
-exports.category_stall=function(req,res)
-{
-    res.render('category/stall', { pageTitle: 'Quản lý gian hàng' });
-};
 
 exports.category_list= async function(req,res)
 {

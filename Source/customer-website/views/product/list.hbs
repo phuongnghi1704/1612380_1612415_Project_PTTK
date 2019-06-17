@@ -16,7 +16,7 @@
     <div class="container">
         <div class="row">
             {{#if manufacturerObj}}
-                <div class="col-md-6">
+                <div class="col-md-6" >
                     <a href="manufacturer/{{manufacturerObj.id}}"><button class="btn btn-success">Giá giảm dần</button></a>
                     <a href="manufacturer/asc/{{manufacturerObj.id}}"><button class="btn btn-success">Giá tăng dần</button></a>
                 </div>
@@ -43,7 +43,7 @@
                     <div class="single-shop-product">
                         <div class="product-upper">
                             <form id="plusViewForm" action="incView/{{this.id}}" method="POST">
-                                <a onclick="this.parentElement.submit()" style="color: black"><img src="{{this.img1}}" alt=""></a>
+                                <a onclick="this.parentElement.submit()" style="color: black"><img style="width: 360px; height:270px" src="{{this.img1}}" alt=""></a>
                             </form>
                         </div>
                         <form id="plusViewForm" action="incView/{{this.id}}" method="POST">
@@ -51,12 +51,13 @@
                         </form>
                         <div class="product-carousel-price">
                             <ins>{{formatCurrency this.price}}</ins>
+                            <a style="color: black;" href="cart/add/{{this.id}}"><i class="glyphicon glyphicon-shopping-cart"></i></a>
                         </div>
                     </div>
                 </div>
             {{/each}}
         </div>
-
+        {{>pagination}}
     </div>
 </div>
 <!-- End page content -->

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongoDB = 'mongodb+srv://dragon-straight:8910JQKA@cluster0-dqpzz.mongodb.net/e-commerce';
+const mongoDB = 'mongodb+srv://admin:123@cluster0-apxng.mongodb.net/test';
 
 const Product = require('./models/product');
 const Category = require('./models/category');
@@ -7,9 +7,7 @@ const Manufacturer = require('./models/manufacturer');
 const Customer = require('./models/customer');
 const Order = require('./models/order');
 const Admin = require('./models/admin');
-const Comment = require('./models/comment');
 
-const productDao = require('./models/dao/productDao');
 
 mongoose.connect(mongoDB, function(error){
     if(error)
@@ -403,37 +401,7 @@ mongoose.connect(mongoDB, function(error){
         console.log('Customer successfully saved');
     });
 
-    const mvcOrder = new Order({
-       _id: new mongoose.Types.ObjectId(),
-       infoCustomer: {
-           name: 'Lưu Tuấn Nguyên',
-           address: '170 Giang Tô',
-           sdt: '12345678',
-           email: 'nguyenluu211198@gmail.com',
-       },
-        payment: 'Ship COD',
-        totalPrice: 500000,
-        created: new Date('2019-05-01'),
-        productList: [
-            {
-                name: 'Adidas Messi',
-                price: 300000,
-                quantity: 1
-            },
-            {
-                name: 'Pan Vigor 8 TF',
-                price: 200000,
-                quantity: 1
-            }
-        ],
-        isDeleted: 0,
-        status: 'Đã giao'
-    });
-
-    mvcOrder.save(function (error) {
-        if(error) throw error;
-        console.log('Order successfully saved');
-    });
+    
 
     
 });

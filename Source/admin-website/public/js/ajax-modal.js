@@ -31,18 +31,36 @@ $('button[id^="customerButton"]').on('click', function (e) {
         method: 'GET',
         dataType: 'json',
         success: res =>{
-            customerModal.find("#name").text(res.infoCustomer.name);
-            customerModal.find("#address").text(res.infoCustomer.address);
-            customerModal.find("#email").text(res.infoCustomer.email);
-            customerModal.find("#sdt").text(res.infoCustomer.sdt);
+            customerModal.find("#cusName").text(res.info.name);
+            customerModal.find("#cusAddress").text(res.info.address);
+            customerModal.find("#cusEmail").text(res.email);
+            customerModal.find("#cusSdt").text(res.info.sdt);
         }
     });
 });
 
-$('button[id^="productButton"]').on('click', function (e) {
-   const productModal = $('#productModal');
-   const isOrder = get_ID_Order($(this).val());
-   const toURL = '/orders/list/productInfo/' + isOrder.text();
+$('button[id^="receiverButton"]').on('click', function (e) {
+    const receiverModal = $("#receiverModal");
+    const idOrder = get_ID_Order($(this).val());
+    const toURL = '/orders/list/receiverInfo/' + idOrder.text();
+    $.ajax({
+        url: toURL,
+        contentType: 'application/json',
+        method: 'GET',
+        dataType: 'json',
+        success: res =>{
+            receiverModal.find("#receiverName").text(res.name);
+            receiverModal.find("#receiverAddress").text(res.address);
+            receiverModal.find("#receiverEmail").text(res.email);
+            receiverModal.find("#receiverSdt").text(res.sdt);
+        }
+    });
+});
+
+$('button[id^="cartButton"]').on('click', function (e) {
+   const productModal = $('#cartModal');
+   const idOrder = get_ID_Order($(this).val());
+   const toURL = '/orders/list/productInfo/' + idOrder.text();
 
    $.ajax({
       url: toURL,

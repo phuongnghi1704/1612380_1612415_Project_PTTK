@@ -31,15 +31,18 @@ module.exports = {
         const dateString = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
         return new hbs.SafeString(dateString);
     },
-    forLoop: function(from, to, block) {
-        var accum = '';
-        for(var i = from; i <= to; i ++)
-            accum += block.fn(i);
+    forLoop: function(url, from, to, block) {
+        let accum = '';
+        for(let i = from; i <= to; i++)
+        {
+            accum += block.fn(i).slice(0,65) + url + block.fn(i).slice(65);
+            console.log("dasjkyhdasjkdhaskcxz",accum)
+        }
         return accum;
     },
     ifCond: function(v1, v2, options) {
         if(v1 < v2) {
-          return options.fn(this);
+            return options.fn(this);
         }
         return options.inverse(this);
       }

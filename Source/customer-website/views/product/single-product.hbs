@@ -60,29 +60,17 @@
             </br>
                  <div role="tabpanel">
                      <ul class="product-tab" role="tablist">
-                         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">Đánh giá</a></li>
-                         <li role="presentation" class=""><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">Xem {{this.count}} bình luận </a></li>
+                         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">Xem {{this.count}} bình luận</a></li>
+                         <li role="presentation" class=""><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">Đánh giá</a></li>
                      </ul>
                      <div class="tab-content">
-                         <div role="tabpanel" class="tab-pane fade active in" id="home">
-                             <div class="submit-review">
-                                 <form method="post">
-                                     <div class="form-group">
-                                         <p><label for="name">Tên</label> <input name="name" type="text" value="{{curCustomer.info.name}}"></p>
-                                         <p><label for="email">Email</label> <input name="email" type="email" value={{curCustomer.email}}></p>
-                                         <p><label for="review">Bình luận</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
-                                         <p><input type="submit" value="Thêm bình luận"></p>
-                                     </div>
-                                 </form>
-                             </div>
-                         </div>
-                         <div role="tabpanel" class="tab-pane fade" id="profile" >
+                           <div role="tabpanel" class="tab-pane fade active in" id="home">
 
-                             {{#if comments}}
+                          {{#if comments}}
                                  {{#each comments}}
-                                     <div class="col-md-6">
+                                     <div class="col-md-12">
                                          <div class="well well-lg">
-                                             <div class=col-md-3>
+                                             <div class=col-md-1>
                                                  <img src="img/customer logo.png" width="70" height="70">
                                              </div>
                                              <h4>{{this.customerName}} </h4>
@@ -94,6 +82,22 @@
                                      </div>
                                  {{/each}}
                              {{/if}}
+                                     {{>pagination}}
+                                                              </div>
+
+                         <div role="tabpanel" class="tab-pane fade" id="profile" >
+
+                             <div class="submit-review">
+                                 <form method="post">
+                                     <div class="form-group">
+                                         <p><label for="name">Tên</label> <input name="name" type="text" value="{{curCustomer.info.name}}"></p>
+                                         <p><label for="email">Email</label> <input name="email" type="email" value={{curCustomer.email}}></p>
+                                         <p><label for="review">Bình luận</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
+                                         <p><input type="submit" value="Thêm bình luận" style="border-radius: 10px"></p>
+                                     </div>
+                                 </form>
+                             </div>
+
                          </div>
 
                          <div class=col-md-12>
@@ -104,7 +108,7 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="single-shop-product">
                         <div class="product-upper">
-                            <img src="{{this.img1}}" alt="">
+                            <img style="width: 255px; height:191.25px" src="{{this.img1}}" alt="">
                         </div>
                         <h2><a href={{productPage this._id}}>{{this.name}}</a></h2>
                         <div class="product-carousel-price">

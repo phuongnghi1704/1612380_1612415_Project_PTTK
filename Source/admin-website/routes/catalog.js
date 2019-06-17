@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const hbs = require('express-handlebars');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
+const multer = require('multer');
 
 var categoryController=require('../controllers/categoryController');
 var usersController=require('../controllers/usersController');
@@ -16,24 +17,50 @@ router.get('/report/items',ensureAuthenticated,reportController.report_item);
 
 router.get('/report/profit',ensureAuthenticated,reportController.report_profit);
 
+//Order
 router.get('/orders/list',ensureAuthenticated,ordersController.order_list);
-
 router.get('/orders/list/customerInfo/:id',ensureAuthenticated, ordersController.order_getCustomerInfo);
-
-router.get('/orders/list/productInfo/:id',ensureAuthenticated, ordersController.order_getProductInfo);
-
+router.get('/orders/list/receiverInfo/:id',ensureAuthenticated, ordersController.order_getReceiverInfo);
+//router.get('/orders/list/cartInfo/:id',ensureAuthenticated, ordersController.order_getCartInfo);
 router.get('/orders/update/:id',ensureAuthenticated, ordersController.order_update_get);
-
 router.post('/orders/update/:id',ensureAuthenticated, ordersController.order_update_post);
-
 router.get('/orders/delete/:id',ensureAuthenticated, ordersController.order_delete);
 
 //Product
 router.get('/items/list',ensureAuthenticated,item_controller.item_list);
 router.get('/items/add',ensureAuthenticated,item_controller.item_add_get);
-router.post('/items/add',ensureAuthenticated,item_controller.item_add_post);
+
+const storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, 'public/img');
+    },
+    filename: function (req, file, callback) {
+        callback(null, file.originalname);
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    // reject a file
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+};
+
+
+const upload = multer({
+    storage : storage,
+    fileFilter: fileFilter
+});/*.fields([
+    {name: 'img1'},
+    {name: 'img2'},
+    {name: 'img3'},
+]);*/
+
+router.post('/items/add',upload.array('img',3),ensureAuthenticated,item_controller.item_add_post);
 router.get('/items/update/:id',ensureAuthenticated,item_controller.item_update_get);
-router.post('/items/update/:id',ensureAuthenticated,item_controller.item_update_post);
+router.post('/items/update/:id',upload.array('img',3),ensureAuthenticated,item_controller.item_update_post);
 router.get('/items/delete/:id',ensureAuthenticated,item_controller.item_delete);
 router.post('/items/list/block/:id', ensureAuthenticated, item_controller.item_change_block);
 
@@ -48,7 +75,6 @@ router.post('/users/list/block/:id', ensureAuthenticated, usersController.user_c
 
 //Category
 router.get('/category/list',ensureAuthenticated,categoryController.category_list);
-router.get('/category/stall',ensureAuthenticated,categoryController.category_stall);
 router.get('/category/add',ensureAuthenticated,categoryController.category_add_get);
 router.get('/category/:id',ensureAuthenticated,categoryController.category_edit);
 router.post('/category/add',ensureAuthenticated,categoryController.category_add_post);

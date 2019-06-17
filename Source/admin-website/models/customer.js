@@ -1,15 +1,20 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
+const randomstring= require('randomstring')
 
 const customerSchema = new Schema({
     username: String,
     password: String,
     email: String,
+    resetPasswordToken:{type:String,default : randomstring.generate(17)},
+    resetPasswordExpires:{type: Date, default: Date.now()},
+    secretToken: {type:String,default : randomstring.generate(6)},
+    isActive: {type: Boolean, default: false},
     info: {
         name: String,
         address: String,
-        sdt: String,
+        sdt: String
     },
     isBlocked: {type: Boolean, default: false}
 });

@@ -1,5 +1,6 @@
 $("input[id='username']").on('blur', () => {
     const inputUsername = $('input[id="username"]').val();
+
     const body = $('#registerBody');
     if (inputUsername == '')
     {
@@ -14,7 +15,7 @@ $("input[id='username']").on('blur', () => {
         success: (res) => {
             if (res.isAvailable == false) {
                 body.find('#message').css('visibility', 'visible');
-                body.find('#messageText').text('Tên tài khoản đã tồn tại.');
+                body.find('#messageText').text('Tên tài khoản đã tồn tại');
             }
             else
             {

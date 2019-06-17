@@ -27,7 +27,7 @@
             <div class="modal-body">
                 <div class="row content">
                     <div class="col-sm-12">
-                        <form method="POST" action="" class="form-horizontal">
+                        <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
                             <div class="panel panel-success">
                                 <div class="panel-heading" style="font-size: 25px;font-weight: bold; background-color: rgb(28, 188, 156);color: white"> &nbsp; Cập Nhật Sản Phẩm</div>
                                     <div class="row">
@@ -58,7 +58,6 @@
                                                     {{/each}}
                                                 </select>
                                             </div>
-
                                             <div class="form-group">
                                                 <label for="manufacturer" class="col-md-4 control-label">Nhà Sản Xuất</label>
                                                 <select class="col-md-6 form-control" id="exampleFormControlSelect1" name="manufacturer">
@@ -80,13 +79,15 @@
                                             <div class="form-group">
                                                 <label for="file" class="col-md-4 control-label">Hình Ảnh</label>
                                                 <div class="col-md-12">
-                                                    <input type="file" accept="image/*" class="form-control" id="file" name="img1" required onchange="readURL(this);">{{product.img1}}
+                                                    <input type="file" accept="image/*" class="form-control" id="file" name="img" required onchange="readURL(this);">
                                                 </div>
+                                                </br>
                                                 <div class="col-md-12">
-                                                    <input type="file" accept="image/*" class="form-control" id="file" name="img2" required onchange="readURL(this);">{{product.img2}}
+                                                    <input type="file" accept="image/*" class="form-control" id="file" name="img" required onchange="readURL(this);">
                                                 </div>
+                                                </br>
                                                 <div class="col-md-12">
-                                                    <input type="file" accept="image/*" class="form-control" id="file" name="img3" required onchange="readURL(this);">{{product.img3}}
+                                                    <input type="file" accept="image/*" class="form-control" id="file" name="img" required onchange="readURL(this);">
                                                 </div>
                                             </div>
                                         </div>

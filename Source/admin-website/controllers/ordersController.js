@@ -1,15 +1,51 @@
 const orderDao = require('../models/dao/orderDao');
+const Order = require('../models/order');
+const Cart = require('../models/cart');
 const mongoose = require('mongoose');
 exports.order_list= async function(req,res)
 {
     const name = req.user.info.name;
-    const order = await orderDao.get_Order();
+    //const order = await orderDao.get_Order();
+
+    const url = '/orders/list/';
+
+    let page = req.query.page || 1;
+    page=parseInt(page);
+    const numPageLink = 2;
+
+    const pageStart = page;
+    const prev=page-1 >0?page-1:1;
+    const next=page+1;
+    const limit = 2;
+    const offset = (page - 1) * limit;
+
+    const orders = await Order.find().limit(limit).skip(offset).sort({created:-1});
+    var cart;
+    await orders.forEach(function(order){
+        cart = new Cart(order.cart);
+        order.items = cart.generateArray();
+    });
+    const prevPages = pageStart - numPageLink > 0 ? pageStart - numPageLink : 1;
+    const nextPages = pageStart + numPageLink;
+    const count = await Order.count();
+
+    const numPages = Math.ceil(count / limit);
+    const pageEnd = page + numPageLink < numPages ? page + numPageLink : numPages;
+
+
     res.render('orders/list', { pageTitle: 'Danh sách hóa đơn',
-        orderList: order,
+        orderList: orders,
         nameAdmin: name,
+        prev:prev,
+        next:next,
+        prevPages:prevPages,
+        nextPages:nextPages,
+        numPages:numPages,
+        pageStart:pageStart,
+        pageEnd:pageEnd,
+        url: url
        });
 };
-
 
 exports.order_update_get= async function(req, res){
     const orderInfo = await orderDao.get_Order_By_ID(req.params.id);
@@ -62,7 +98,12 @@ exports.order_getCustomerInfo = async (req,res) =>{
     res.json(customerInfo);
 };
 
-exports.order_getProductInfo = async (req,res) => {
-    const productInfo = await orderDao.get_Order_By_ID(req.params.id);
-    res.json(productInfo);
+exports.order_getReceiverInfo = async (req,res) =>{
+    const receiverInfo = await orderDao.get_ReceiverInfo_By_ID(req.params.id);
+    res.json(receiverInfo);
 };
+
+/*exports.order_getCartInfo = async (req,res) => {
+    const cartInfo = await orderDao.get_Cart_By_ID(req.params.id);
+    res.json(cartInfo);
+};*/

@@ -29,6 +29,11 @@
             <div style="visibility: hidden;" id="message" class="alert alert-danger" role="alert">
                 <p id="messageText"></p>
             </div>
+            {{#if errorMsg}}
+                <div id="message" class="alert alert-danger" role="alert">
+                    <p id="messageText">{{errorMsg}}</p>
+                </div>
+            {{/if}}
             <form id="registerForm" method="post">
                 <div class="form-group">
                     <div class="form-row">
@@ -123,11 +128,7 @@
                                         required="required">
                             </div>
                         </div>
-                        <span style="margin-top:1em">
-                            <div class="alert alert-warning" role="alert">
-                            {{text}}                               
-                            </div>
-                        </span>
+                        
                     </div>
                 </div>
                 <button id="commitRegister" type="submit" class="btn btn-primary btn-block">Đăng ký</button>

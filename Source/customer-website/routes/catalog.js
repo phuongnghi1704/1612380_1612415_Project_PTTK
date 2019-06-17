@@ -36,6 +36,7 @@ router.get('/cart/reduce/:id', productController.product_reduceInCart);
 //GET remove product from cart
 router.get('/cart/remove/:id', productController.product_removeFromCart);
 
+
 module.exports = router;
 
 function isLoggedIn(req,res,next){

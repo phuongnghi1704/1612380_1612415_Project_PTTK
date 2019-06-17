@@ -33,10 +33,10 @@ body { font-family:Roboto Condensed, Helvetica, sans-serif; }
 
 
 .header-area {
-    background: none repeat scroll 0 0 #2f333a;
+    background: none repeat scroll 0 0 #dbdddf;
 }
 .header-area a {
-    color: #e70d0d;
+    color: #5a88ca;
 }
 .user-menu ul {
     list-style: outside none none;
@@ -370,7 +370,7 @@ z-index: 999;}
   font-weight: 400;
   margin-bottom: 50px;
   text-align: center;
-  color: #e70d0d
+  color: #5a88ca
 }
 
 
@@ -497,7 +497,7 @@ z-index: 999;}
   font-size: 30px;
   font-weight: 500;
   margin-bottom: 40px;
-  color:#e70d0d;
+  color:#5a88ca;
 }
 
 
@@ -533,6 +533,7 @@ z-index: 999;}
     color: #5a88ca;
 }
 .wid-view-more {
+    border-radius: 10px;
     background: none repeat scroll 0 0 #222;
     color: #fff;
     padding: 3px 15px;
@@ -695,7 +696,7 @@ width: 10px;
 .single-product-area .zigzag-bottom {background-color: #f4f4f4}
 
 .single-product-area {
-  padding: 80px 0 130px;
+  padding: 20px 70px;
 }
 
 
@@ -716,7 +717,7 @@ input[type="text"], input[type="password"], input[type="email"], textarea {
     padding: 10px;
 }
 input[type="submit"], button[type=submit] {
-    background: none repeat scroll 0 0 #2f333a;
+    background: none repeat scroll 0 0#007bff;
     border: medium none;
     color: #fff;
     padding: 11px 20px;
@@ -1190,7 +1191,7 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
 .block-slider .title{
     display: flex;
     justify-content: center;
-    color:#e70d0d;
+    color:#5a88ca;
     font-weight: 700;
     text-decoration: none;
     margin-top: 10px;

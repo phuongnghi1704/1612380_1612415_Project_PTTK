@@ -80,6 +80,7 @@
 .owl-carousel .owl-controls .owl-nav .owl-prev,
 .owl-carousel .owl-controls .owl-nav .owl-next,
 .owl-carousel .owl-controls .owl-dot {
+  border-radius: 15px;
   cursor: pointer;
   cursor: hand;
   -webkit-user-select: none;
