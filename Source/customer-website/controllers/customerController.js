@@ -106,7 +106,7 @@ exports.checkout_post = function(req, res){
         res.redirect('/cart');
     }
     const cart = new Cart(req.session.cart);
-    const stripe = require("stripe")("sk_test_TKy5X1aloFTTY5OBnagOvw7600dk5Ak6Tw");
+    const stripe = require("stripe")("sk_test_3EVkoFkVB4cGAcpUkgtOW90u00oeG0qwzh");
 
     stripe.charges.create({
         amount: cart.totalPrice,
