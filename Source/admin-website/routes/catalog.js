@@ -32,7 +32,7 @@ router.get('/items/add',ensureAuthenticated,item_controller.item_add_get);
 
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, 'public/img');
+        callback(null, './../customer-website/public/img');
     },
     filename: function (req, file, callback) {
         callback(null, file.originalname);

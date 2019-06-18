@@ -36,7 +36,6 @@ module.exports = {
         for(let i = from; i <= to; i++)
         {
             accum += block.fn(i).slice(0,65) + url + block.fn(i).slice(65);
-            console.log("dasjkyhdasjkdhaskcxz",accum)
         }
         return accum;
     },
@@ -45,5 +44,11 @@ module.exports = {
             return options.fn(this);
         }
         return options.inverse(this);
+      },
+      ifLessEqual: function(v1, v2, options) {
+          if(v1 <= v2) {
+              return options.fn(this);
+          }
+          return options.inverse(this);
       }
 };

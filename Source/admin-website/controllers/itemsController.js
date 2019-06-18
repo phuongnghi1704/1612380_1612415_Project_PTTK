@@ -17,12 +17,11 @@ exports.item_list = async function(req,res) {
 
     let page=req.query.page || 1;
     page=parseInt(page);
-    const numPageLink = 2;
+    const numPageLink = 3;
 
     const pageStart = page;
     const prev=page-1 >0?page-1:1;
-    const next=page+1;
-    const limit = 2;
+    const limit = 3;
     const offset = (page - 1) * limit;
 
     const list= await Product.find({isDeleted: false}).limit(limit).skip(offset)
@@ -33,6 +32,8 @@ exports.item_list = async function(req,res) {
     const count = await Product.count({isDeleted:false});
 
     const numPages = Math.ceil(count / limit);
+    const next=page+1>numPages?numPages:page+1;
+
     const pageEnd = page + numPageLink < numPages ? page + numPageLink : numPages;
 
 
@@ -47,6 +48,7 @@ exports.item_list = async function(req,res) {
         numPages:numPages,
         pageStart:pageStart,
         pageEnd:pageEnd,
+        count:count,
         url: url
     });
 };
