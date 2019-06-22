@@ -58,9 +58,9 @@ $('button[id^="receiverButton"]').on('click', function (e) {
 });
 
 $('button[id^="cartButton"]').on('click', function (e) {
-   const productModal = $('#cartModal');
+   const cartModal = $('#cartModal');
    const idOrder = get_ID_Order($(this).val());
-   const toURL = '/orders/list/productInfo/' + idOrder.text();
+   const toURL = '/orders/list/cartInfo/' + idOrder.text();
 
    $.ajax({
       url: toURL,
@@ -68,13 +68,14 @@ $('button[id^="cartButton"]').on('click', function (e) {
       contentType: 'application/json',
       dataType: 'json',
       success: res =>{
-          res.productList.forEach(product => {
-             productModal.find('tbody').append('<tr> ' +
-                 '<td>' + product._id + '</td> ' +
-                 '<td>' + product.name + '</td> ' +
-                 '<td>' + product.price + '</td> ' +
-                 '<td>' + product.quantity + '</td> ' +
-                 '</tr>');
+          res.cart.items.forEach(product => {
+              if(product){
+                  cartModal.find('tbody').append('<tr> ' +
+                      '<td>' + product.name + '</td> ' +
+                      '<td>' + product.size + '</td> ' +
+                      '<td>' + product.price + '</td> ' +
+                      '</tr>');
+              }
           });
       }
    });
@@ -85,7 +86,7 @@ $('#customerModal').on('hidden.bs.modal', function () {
     $(this).removeData('bs.modal');
 });
 
-$('#productModal').on('hidden.bs.modal', function () {
+$('#cartModal').on('hidden.bs.modal', function () {
     $(this).removeData('bs.modal');
     $(this).find('tbody').html('');
 });

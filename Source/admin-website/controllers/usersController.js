@@ -18,7 +18,7 @@ exports.user_list= async function(req,res)
     const pageStart = page;
     const prev=page-1 >0?page-1:1;
     const next=page+1;
-    const limit = 2;
+    const limit = 5;
     const offset = (page - 1) * limit;
 
     const customers = Customer.find({}).limit(limit).skip(offset);
@@ -30,7 +30,6 @@ exports.user_list= async function(req,res)
     const numPages = Math.ceil(count / limit);
     const pageEnd = page + numPageLink < numPages ? page + numPageLink : numPages;
 
-    
     res.render('users/list',
         {
             pageTitle: 'Danh sách tài khoản',
@@ -74,20 +73,18 @@ exports.user_add_post = function(req,res,next){
 
         customer.password=customer.generateHash(req.body.password);
         customer.save(function(error){
-            if(error) throw error;
+            //Compose email       
             const html=`Chào bạn,
-        Cám ơn vì đã tạo tài khoản.
-        Tên đăng nhập của bạn là ${customer.username}
-        Vui lòng xác thực email bằng cách nhập đoạn mã:  ${secretToken}
-        Vào trang: http://localhost:3000/verify
-        Chúc một ngày tốt lành.`;
-        sendMail(customer.email,'Verify',html,function(err)
-        {
-             if (err) throw err
-             res.redirect('list');
-
-             });
-
+            Cám ơn vì đã tạo tài khoản.
+            Tên đăng nhập của bạn là: ${customer.username}       
+            Vui lòng xác thực email bằng cách nhập đoạn mã:  ${secretToken}
+            Vào trang: https://website-customer.herokuapp.com/verify
+            Chúc một ngày tốt lành.`;
+            sendMail(customer.email,'Verify',html,function(err,data){
+                if (err) throw err;
+               
+                res.redirect('list');
+            }); 
         });
     });
 };

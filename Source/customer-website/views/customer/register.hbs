@@ -20,8 +20,6 @@
 </head>
 
 <body class="bg-light" style="zoom: 150%">
-<!--Check register without submit-->
-<script src="vendor/js/checkRegister.js"></script>
 <div class="container">
     <div class="card card-register mx-auto mt-5">
         <div class="card-header">{{pageTitle}}</div>
@@ -121,14 +119,18 @@
                             <h6>Email:</h6>
                             <div class="form-label-group">
                                 <input
-                                        tyspe="email"
+                                        type="email"
                                         name="email"
+                                        id="email"
                                         class="form-control"
-                                        placeholder="Confirm password"
                                         required="required">
                             </div>
                         </div>
-                        
+                        <span style="margin-top:1em">
+                            <div class="alert alert-warning" role="alert">
+                            {{text}}                               
+                            </div>
+                        </span>
                     </div>
                 </div>
                 <button id="commitRegister" type="submit" class="btn btn-primary btn-block">Đăng ký</button>
@@ -148,6 +150,8 @@
 <!-- Core plugin JavaScript-->
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
+<!--Check register without submit-->
+<script src="vendor/js/checkRegister.js"></script>
 
 </body>
 

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
-const randomstring= require('randomstring')
+const randomstring= require('randomstring');
 
 const customerSchema = new Schema({
     username: String,

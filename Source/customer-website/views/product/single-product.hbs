@@ -21,13 +21,13 @@
                         <div class="block-slider block-slider4">
                             <ul class="" id="bxslider-home4">
                                 <li id="slider">
-                                    <img style="height: 10cm" src = {{product.img1}} alt="Slide">
+                                    <img style="height: 10cm" src ="{{product.img1}}" alt="Slide">
                                 </li>
                                 <li id="slider">
-                                    <img style="height: 10cm" src = {{product.img2}} alt="Slide">
+                                    <img style="height: 10cm" src ="{{product.img2}}" alt="Slide">
                                 </li>
                                 <li id="slider">
-                                    <img style="height: 10cm" src = {{product.img3}} alt="Slide">
+                                    <img style="height: 10cm" src ="{{product.img3}}" alt="Slide">
                                 </li>
                             </ul>
                         </div>
@@ -46,7 +46,24 @@
                         </div>
 
                         {{#if product.status}}
-                            <a href="/cart/add/{{product.id}}" class="btn btn-success" role="button"><i class="fa fa-shopping-cart"></i>&nbsp;Thêm vào giỏ</a>
+                            <form action="/cart/add/{{product.id}}" method="post" class="cart">
+                                <div class="col-md-6">
+                                    <label for="size" class="control-label">Chọn size</label>
+                                    <select class="col-md-6 form-control" name="size">
+                                        <option value="36">36</option>
+                                        <option value="37">37</option>
+                                        <option value="38">38</option>
+                                        <option value="39">39</option>
+                                        <option value="40">40</option>
+                                        <option value="41">41</option>
+                                        <option value="42">42</option>
+                                        <option value="43">43</option>
+                                        <option value="44">44</option>
+                                    </select>
+                                </div>
+                                </br>
+                                <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Thêm vào giỏ</button>
+                            </form>
                         {{else}}
                             <img height="100" width="100" src="img/soldout.png">
                         {{/if}}

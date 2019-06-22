@@ -16,15 +16,10 @@ exports.order_list= async function(req,res)
     const pageStart = page;
     const prev=page-1 >0?page-1:1;
     const next=page+1;
-    const limit = 2;
+    const limit = 5;
     const offset = (page - 1) * limit;
 
     const orders = await Order.find().limit(limit).skip(offset).sort({created:-1});
-    var cart;
-    await orders.forEach(function(order){
-        cart = new Cart(order.cart);
-        order.items = cart.generateArray();
-    });
     const prevPages = pageStart - numPageLink > 0 ? pageStart - numPageLink : 1;
     const nextPages = pageStart + numPageLink;
     const count = await Order.count();
@@ -34,7 +29,7 @@ exports.order_list= async function(req,res)
 
 
     res.render('orders/list', { pageTitle: 'Danh sách hóa đơn',
-        orderList: orders,
+        orders: orders,
         nameAdmin: name,
         prev:prev,
         next:next,
@@ -69,7 +64,7 @@ exports.order_update_post = async function(req, res){
   if(orderInfo == null)
       res.status(404).send();
 
-  orderInfo.totalPrice = req.body.totalPrice;
+  orderInfo.cart.totalPrice = req.body.totalPrice;
   orderInfo.status = req.body.status;
   orderInfo.payment = req.body.payment;
 
@@ -103,7 +98,7 @@ exports.order_getReceiverInfo = async (req,res) =>{
     res.json(receiverInfo);
 };
 
-/*exports.order_getCartInfo = async (req,res) => {
+exports.order_getCartInfo = async (req,res) => {
     const cartInfo = await orderDao.get_Cart_By_ID(req.params.id);
     res.json(cartInfo);
-};*/
+};

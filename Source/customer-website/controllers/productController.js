@@ -22,7 +22,7 @@ exports.product_viewProductList_dec = async function(req, res) {
     const pageStart = page;
     const prev=page-1 >0?page-1:1;
     const next=page+1;
-    const limit = 3;
+    const limit = 6;
     const offset = (page - 1) * limit;
 
     const products = Product.find({isDeleted: false}).limit(limit).skip(offset).sort({price: -1});
@@ -47,6 +47,7 @@ exports.product_viewProductList_dec = async function(req, res) {
         numPages:numPages,
         pageStart:pageStart,
         pageEnd:pageEnd,
+        count:count,
         url: url
     });
 };
@@ -91,6 +92,7 @@ exports.product_viewProductList_asc = async function(req, res) {
         numPages:numPages,
         pageStart:pageStart,
         pageEnd:pageEnd,
+        count:count,
         url: url
     });
 };
@@ -136,7 +138,8 @@ exports.product_viewByManufacturer_dec = async function(req, res) {
         nextPages:nextPages,
         numPages:numPages,
         pageStart:pageStart,
-        pageEnd:pageEnd,
+        pageEnd:pageEnd,       
+         count:count,
         url: url
     });
 };
@@ -183,6 +186,7 @@ exports.product_viewByCategory_dec = async function(req, res) {
         numPages:numPages,
         pageStart:pageStart,
         pageEnd:pageEnd,
+        count:count,
         url: url
     });
 };
@@ -228,6 +232,7 @@ exports.product_viewByManufacturer_asc = async function(req, res) {
         numPages:numPages,
         pageStart:pageStart,
         pageEnd:pageEnd,
+        count:count,
         url: url
     });
 };
@@ -273,6 +278,7 @@ exports.product_viewByCategory_asc = async function(req, res) {
         numPages:numPages,
         pageStart:pageStart,
         pageEnd:pageEnd,
+        count:count,
         url: url
     });
 };
@@ -283,8 +289,14 @@ exports.product_search = async (req, res) => {
     let productList;
     let pathSearch1='';
 
+
+    //null
+    if(!req.query.name && !req.query.price && !req.query.category && !req.query.manufacturer)
+    {
+        res.redirect('/');
+    }
     //name
-    if(req.query.name && !req.query.price && !req.query.category && !req.query.manufacturer)
+    else if(req.query.name && !req.query.price && !req.query.category && !req.query.manufacturer)
     {
         productList = await productDao.search_name(req.query.name);
        // pathSearch1=req.query.name;
@@ -358,53 +370,52 @@ exports.product_search = async (req, res) => {
 exports.product_cart = async function(req, res){
     const manufacturer = productDao.get_Manufacturer();
     const category = productDao.get_Category();
+
+
     if(!req.session.cart){
         res.render('product/cart', {
             pageTitle: 'Giỏ hàng',
             manufacturerList: await manufacturer,
             categoryList: await category,
-            curCustomer: req.user,
+            curCustomer: req.user
     });
     }
     else{
-        const cart = new Cart(req.session.cart);
+        const cartCreate = new Cart(req.session.cart);
         res.render('product/cart', {
             pageTitle: 'Giỏ hàng',
             manufacturerList: await manufacturer,
             categoryList: await category,
             curCustomer: req.user,
-            cartProducts: await cart.generateArray(),
-            cartTotalPrice: req.session.cart.totalPrice
+            /*cartProducts: await cart.generateArray(),
+            cartTotalPrice: req.session.cart.totalPrice*/
+            cart: cartCreate
         });
     }
 };
 
 exports.product_addToCart = async function(req, res) {
-    var productId = req.params.id;
-    var cart = new Cart(req.session.cart ? req.session.cart : {items:{}});
+    const productId = req.params.id;
+    let cart = new Cart(req.session.cart ? req.session.cart : {items:[]});
 
     await Product.findById(productId,async function(err,product){
+        product.size = req.body.size;
         if(err) { return res.redirect('/');}//xử lý tạm, đúng là là nên có thông báo
-        await cart.add(product,product.id);
-        req.session.cart = cart;
-        res.redirect('/cart');
+        await cart.add(product);
+        req.session.cart = await cart;
+        res.redirect('../../cart');
     })
-};
-
-exports.product_reduceInCart = async function(req, res) {
-    var productId = req.params.id;
-    var cart = new Cart(req.session.cart ? req.session.cart : {items:{}});
-
-    await cart.reduce(productId);
-    req.session.cart = cart;
-    res.redirect('/cart');
 };
 
 exports.product_removeFromCart = async function(req, res) {
     var productId = req.params.id;
     var cart = new Cart(req.session.cart ? req.session.cart : {items:{}});
+    var productRemoved = await Product.findById(productId);
 
-    await cart.remove(productId);
+
+    productRemoved.size = req.body.removeSize;
+
+    await cart.remove(productRemoved);
     req.session.cart = cart;
     res.redirect('/cart');
 };
@@ -412,7 +423,7 @@ exports.product_removeFromCart = async function(req, res) {
 exports.product_viewProduct = async function(req, res)
 {
     const productInfo = await productDao.get_Product_By_Id(req.params.id);
-    const related =  productDao.get_Related_Products(productInfo.manufacturer);
+    const related =  productDao.get_Related_Products(productInfo.category);
     const manufacturer = productDao.get_Manufacturer();
     const category = productDao.get_Category();
 

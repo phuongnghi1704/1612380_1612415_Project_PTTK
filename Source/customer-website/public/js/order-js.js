@@ -14,18 +14,15 @@ $('button[id^="cartButton"]').on('click', function (e) {
         contentType: 'application/json',
         dataType: 'json',
         success: res =>{
-            for(var product in res.cart.items)
-            {
-                console.log(product.item);
-            }
-            /*res.cart.items.forEach(product => {
-                console.log(product);
-                cartModal.find('tbody').append('<tr> ' +
-                    '<td>' + product.item.name + '</td> ' +
-                    '<td>' + product.price + '</td> ' +
-                    '<td>' + product + '</td> ' +
-                    '</tr>');
-            });*/
+            res.cart.items.forEach(product => {
+                if(product){
+                    cartModal.find('tbody').append('<tr> ' +
+                        '<td>' + product.name + '</td> ' +
+                        '<td>' + product.size + '</td> ' +
+                        '<td>' + product.price + '</td> ' +
+                        '</tr>');
+                }
+            });
         }
     });
 });
@@ -46,4 +43,9 @@ $('button[id^="receiverButton"]').on('click', function (e) {
             receiverModal.find("#receiverSDT").text(res.sdt);
         }
     });
+});
+
+$('#cartModal').on('hidden.bs.modal', function () {
+    $(this).removeData('bs.modal');
+    $(this).find('tbody').html('');
 });

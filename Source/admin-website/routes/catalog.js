@@ -21,7 +21,7 @@ router.get('/report/profit',ensureAuthenticated,reportController.report_profit);
 router.get('/orders/list',ensureAuthenticated,ordersController.order_list);
 router.get('/orders/list/customerInfo/:id',ensureAuthenticated, ordersController.order_getCustomerInfo);
 router.get('/orders/list/receiverInfo/:id',ensureAuthenticated, ordersController.order_getReceiverInfo);
-//router.get('/orders/list/cartInfo/:id',ensureAuthenticated, ordersController.order_getCartInfo);
+router.get('/orders/list/cartInfo/:id',ensureAuthenticated, ordersController.order_getCartInfo);
 router.get('/orders/update/:id',ensureAuthenticated, ordersController.order_update_get);
 router.post('/orders/update/:id',ensureAuthenticated, ordersController.order_update_post);
 router.get('/orders/delete/:id',ensureAuthenticated, ordersController.order_delete);
@@ -32,7 +32,7 @@ router.get('/items/add',ensureAuthenticated,item_controller.item_add_get);
 
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, './../customer-website/public/img');
+        callback(null, ' ./../../customer-website/public/img');
     },
     filename: function (req, file, callback) {
         callback(null, file.originalname);

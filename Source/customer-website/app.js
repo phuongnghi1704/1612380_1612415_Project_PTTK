@@ -15,7 +15,7 @@ const MongoStore = require('connect-mongo')(session);
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
-const mongoDB = 'mongodb+srv://admin:123@cluster0-apxng.mongodb.net/test';
+var mongoDB = 'mongodb+srv://admin:123@cluster0-apxng.mongodb.net/test';
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -46,8 +46,8 @@ app.use(express.static(path.join(__dirname, '/public')));
 //express session
 app.use(session({
   secret:'mysupersecret',
-  resave: false,
-  saveUninitialized: false,
+  resave: true,
+  saveUninitialized: true,
   store: new MongoStore({mongooseConnection: mongoose.connection}),
   cookie:{maxAge: 300*1000}
 }));

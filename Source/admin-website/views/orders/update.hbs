@@ -36,16 +36,16 @@
                                         <input name="id" class="form-control" type="text" value="{{order._id}}" readonly="true">
                                     </div>
                                     <div class="form-group col-sm-6">
-                                        <label>Tên khách hàng</label>
-                                        <input name="customerName" class="form-control" type="text" value="{{order.infoCustomer.name}}" readonly="true">
+                                        <label>Tài khoản khách hàng</label>
+                                        <input name="customerName" class="form-control" type="text" value="{{order.customer.username}}" readonly="true">
                                     </div>
                                     <div class="form-group col-sm-6">
                                         <label for="totalPrice">Thành tiền</label>
-                                        <input id="totalPrice" name="totalPrice" class="form-control" type="number" value="{{order.totalPrice}}">
+                                        <input id="totalPrice" name="totalPrice" class="form-control" type="number" value="{{order.cart.totalPrice}}">
                                     </div>
                                     <div class="form-group col-sm-6">
                                         <label for="payment">Hình thức thanh toán</label>
-                                        <select class="form-control" id="payment" name="payment">
+                                        <select class="form-control" id="payment" name="payment" readonly="true">
                                             {{#if isCreditCard}}
                                                 <option value="Credit card">Credit card</option>
                                                 <option value="Ship COD">Ship COD</option>

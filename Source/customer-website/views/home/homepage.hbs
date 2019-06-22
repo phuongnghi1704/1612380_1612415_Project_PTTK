@@ -18,7 +18,7 @@
         <ul class="" id="bxslider-home4">
             {{#each randomProduct}}
             <li id="slider">
-                <img src = {{this.img1}} alt="Slide">
+                <img src = "{{this.img1}}" alt="Slide">
                 <h2 class="caption title">
                     {{this.name}}
                     {{formatCurrency this.price}}
@@ -78,9 +78,8 @@
                         {{#each topLatest}}
                         <div class="single-product">
                             <div class="product-f-image">
-                                <img src= {{this.img1}} alt="">
+                                <img src= {{this.img1}} style="width:220px; height:220px" alt="">
                                 <div class="product-hover">
-                                    <a href="cart/add/{{this.id}}" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</a>
                                     <form id="plusViewForm" action="incView/{{this.id}}" method="POST">
                                         <a class="view-details-link" onclick="this.parentElement.submit()" style="color: white"><i class="fa fa-link"></i> Xem chi tiết</a>
                                     </form>

@@ -20,39 +20,12 @@ exports.forgotPassword_index = function(req, res){
 exports.customer_orders = async function(req, res) {
     const manufacturer = productDao.get_Manufacturer();
     const category = productDao.get_Category();
-    /*Order.find({customer: req.user},async function(err,orders){
-        if(err){
-            res.render('customer/orders', {
-                pageTitle: 'Các đơn hàng',
-                manufacturerList: manufacturer,
-                categoryList: category,
-                curCustomer: req.user,
-            });
-        }
-        var cart;
-        await orders.forEach(function(order){
-            cart = new Cart(order.cart);
-            order.items = cart.generateArray();
-        });
-        res.render('customer/orders', {
-            pageTitle: 'Các đơn hàng',
-            manufacturerList: manufacturer,
-            categoryList: category,
-            curCustomer: req.user,
-            orders: orders
-        });
-    });*/
     const orders = await Order.find({customer: req.user}).sort({created: -1});
     if(orders){
-        var cart;
-        await orders.forEach(function(order){
-            cart = new Cart(order.cart);
-            order.items = cart.generateArray();
-        });
         res.render('customer/orders', {
             pageTitle: 'Các đơn hàng',
-            manufacturerList: manufacturer,
-            categoryList: category,
+            manufacturerList: await manufacturer,
+            categoryList: await category,
             curCustomer: req.user,
             orders: orders
         });
@@ -69,9 +42,9 @@ exports.customer_orders = async function(req, res) {
 };
 
 exports.order_getCartInfo = async function(req,res){
-    const cartInfo = await Order.findById(req.params.id,'cart');
-    console.log(cartInfo);
-    res.json(cartInfo);
+    const orderInfo = await Order.findById(req.params.id,'cart');
+    //console.log(orderInfo);
+    res.json(orderInfo);
 };
 
 exports.order_getReceiverInfo = async function(req,res){
@@ -79,22 +52,22 @@ exports.order_getReceiverInfo = async function(req,res){
     res.json(receiverInfo);
 };
 
-exports.checkout_get = function(req, res){
+exports.checkout_get = async function(req, res){
     if(!req.session.cart){
         res.redirect('/cart');
     }
     else{
         const manufacturer = productDao.get_Manufacturer();
         const category = productDao.get_Category();
-        const cart = new Cart(req.session.cart);
+        //const cart = new Cart(req.session.cart);
         var errMsg = req.flash('error')[0];
         res.render('customer/checkoutWithCreditCard', {
             pageTitle: 'Thanh toán',
-            manufacturerList: manufacturer,
-            categoryList: category,
+            manufacturerList: await manufacturer,
+            categoryList: await category,
             curCustomer: req.user,
-            cartProducts: cart.generateArray(),
-            cartTotalPrice: req.session.cart.totalPrice,
+            //cartProducts: cart.generateArray(),
+            //cartTotalPrice: req.session.cart.totalPrice,
             errMsg: errMsg,
             noError: !errMsg
         });
@@ -106,7 +79,7 @@ exports.checkout_post = function(req, res){
         res.redirect('/cart');
     }
     const cart = new Cart(req.session.cart);
-    const stripe = require("stripe")("sk_test_3EVkoFkVB4cGAcpUkgtOW90u00oeG0qwzh");
+    const stripe = require("stripe")("sk_test_TKy5X1aloFTTY5OBnagOvw7600dk5Ak6Tw");
 
     stripe.charges.create({
         amount: cart.totalPrice,
@@ -140,20 +113,20 @@ exports.checkout_post = function(req, res){
         });
 
         //add sale to product
-        const productsInOrder = cart.generateArray();
+        const productsInOrder = cart.items;
         productsInOrder.forEach(  async function(product){
-            await Product.findByIdAndUpdate(product.item._id,{$inc: {sale: product.qty}});
+            await Product.findByIdAndUpdate(product._id,{$inc: {sale: 1}});
         });
     });
 };
 
-exports.checkoutCOD_get = function(req,res,){
+exports.checkoutCOD_get = async function(req,res,){
     const manufacturer = productDao.get_Manufacturer();
     const category = productDao.get_Category();
     res.render('customer/checkoutCOD',{
         pageTitle: 'Thanh toán COD',
-        manufacturerList: manufacturer,
-        categoryList: category,
+        manufacturerList: await manufacturer,
+        categoryList: await category,
         curCustomer: req.user
     })
 };
@@ -183,30 +156,47 @@ exports.checkoutCOD_post = function(req,res,){
         res.redirect('/thankyou');
     });
 
-    const productsInOrder = cart.generateArray();
+    const productsInOrder = cart.items;
     productsInOrder.forEach(  async function(product){
-        await Product.findByIdAndUpdate(product.item._id,{$inc: {sale: product.qty}});
+        await Product.findByIdAndUpdate(product._id,{$inc: {sale: 1}});
     });
 };
 
-exports.thank_you = function(req,res){
+exports.thank_you = async function(req,res){
+    const manufacturer = productDao.get_Manufacturer();
+    const category = productDao.get_Category();
     var successMsg = req.flash('success')[0];
     res.render('customer/thankyou', {
         pageTitle: 'Cám ơn bạn',
-        successMsg: successMsg
+        successMsg: successMsg,
+        manufacturerList: await manufacturer,
+        categoryList: await category,
     })
 };
 
 exports.customer_register_get =  function(req, res){
+    const text = "Bạn hãy điền thông tin của mình, lưu ý nhập email phải thật chính xác vì bạn còn phải xác thực bằng email đó.";
     res.render('customer/register', {
         pageTitle: 'Đăng ký',
+        text:text
     });
+};
+
+exports.customer_check_email = async (req, res)=>{
+    let check = {isAvailable: false};
+    const foundEmail = await Customer.findOne({email: req.body.email});
+
+    if(foundEmail)
+    {
+        check.isAvailable = true;
+    }
+    res.json(check);
 };
 
 exports.customer_check_username = async (req,res)=>{
     let check = {isAvailable: false};
     const foundUsername = await Customer.findOne({username: req.body.username});
-    if(foundUsername )
+    if(foundUsername)
     {
         check.isAvailable = true;
     }
@@ -216,8 +206,10 @@ exports.customer_check_username = async (req,res)=>{
 exports.customer_register_post = async function(req, res){
     if(await Customer.findOne({email: req.body.email}))
     {
+        //const text='Nếu tài khoản của bạn sử dụng gmail, xin hãy vào trang web sau đây để mở quyền truy cập để chúng tôi có thể gửi mail cho bạn: https://myaccount.google.com/u/1/lesssecureapps?pageId=none'
         res.render('customer/register', {
             pageTitle: 'Đăng ký',
+            //text:text,
             errorMsg: 'Email này đã được dùng'
         });
     }
@@ -245,8 +237,9 @@ exports.customer_register_post = async function(req, res){
             //Compose email       
             const html=`Chào bạn,
             Cám ơn vì đã tạo tài khoản.
+            Tên đăng nhập của bạn là: ${customer.username}       
             Vui lòng xác thực email bằng cách nhập đoạn mã:  ${secretToken}
-            Vào trang: http://localhost:3000/verify
+            Vào trang: https://website-customer.herokuapp.com/verify
             Chúc một ngày tốt lành.`;
             sendMail(customer.email,'Verify',html,function(err,data){
                 if (err) throw err;
@@ -267,18 +260,15 @@ exports.customer_updateProfile_get = function(req, res) {
 };
 
 exports.customer_updateProfile_post = function(req, res) {
-    var customer = new Customer({
-        _id: req.session.passport.user,
-        username: req.body.username,
-        email: req.body.email,
+
+    //customer.password=customer.generateHash(req.body.password);
+    Customer.findByIdAndUpdate(req.session.passport.user,{
         info: {
             name: req.body.name,
             address: req.body.address,
             sdt: req.body.sdt
         }
-    });
-    //customer.password=customer.generateHash(req.body.password);
-    Customer.findByIdAndUpdate(req.session.passport.user,customer,{},function(err){
+    },{},function(err){
         if(err){return next(err);}
         res.redirect('/');
     })
@@ -327,8 +317,9 @@ exports.customer_resetPassword = async function(req, res) {
         customer.resetPasswordExpires = Date.now() + 3600000; // 1 hour
         customer.save(function(err){
             if (err) throw err
-            else{ const html=`Chào bạn,          
-            Vui lòng vào trang: http://localhost:3000/resetPassword/${resetToken} để cài đặt lại password mới
+            else{ const html=`Chào bạn,   
+            Tên đăng nhập của bạn là: ${customer.username}       
+            Vui lòng vào trang: http://website-customer.herokuapp.com/resetPassword/${resetToken} để cài đặt lại password mới
             Chúc một ngày tốt lành.`
             sendMail(customer.email,'Reset mật khẩu',html,function(err,data){
                 if (err) throw err;
@@ -411,4 +402,4 @@ exports.changepassword_post=async function(req,res)
         res.redirect('/')
     }
 
-}
+};

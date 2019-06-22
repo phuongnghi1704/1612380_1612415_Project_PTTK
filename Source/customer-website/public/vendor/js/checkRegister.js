@@ -1,25 +1,60 @@
 $("input[id='username']").on('blur', () => {
-    const inputUsername = $('input[id="username"]').val();
+    const username = $('input[id="username"]').val();
 
-    const body = $('#registerBody');
-    if (inputUsername == '')
+    if (username == '')
     {
         return;
     }
+
     $.ajax({
-        url:'/register/checkUsername',
+        url:'/register/check-username-available',
         type:'POST',
         data: {
-            'username' : inputUsername
+            'username' : username
         },
         success: (res) => {
             if (res.isAvailable == false) {
-                body.find('#message').css('visibility', 'visible');
-                body.find('#messageText').text('Tên tài khoản đã tồn tại');
+                document.getElementById('message').style.visibility = "visible";
+                document.getElementById('message').className = "alert alert-success";
+                document.getElementById('messageText').innerText = 'Tên tài khoản này bạn có thể dùng được';
+                document.getElementById('commitRegister').disabled = false;
             }
-            else
-            {
-                body.find('#message').css('visibility', 'hidden');
+            else {
+                document.getElementById('message').style.visibility = "visible";
+                document.getElementById('message').className = "alert alert-warning";
+                document.getElementById('messageText').innerText = 'Rất tiếc tên tài khoản này đã tồn tại, hãy thử tên khác';
+                document.getElementById('commitRegister').disabled = true;
+            }
+        }
+    })
+});
+
+$("input[id='email']").on('blur', () => {
+    const email = $('input[id="email"]').val();
+
+    if (email == '')
+    {
+        return;
+    }
+
+    $.ajax({
+        url:'/register/check-email-available',
+        type:'POST',
+        data: {
+            'email' : email
+        },
+        success: (res) => {
+            if (res.isAvailable == false) {
+                document.getElementById('message').style.visibility = "visible";
+                document.getElementById('message').className = "alert alert-success";
+                document.getElementById('messageText').innerText = 'Email này bạn có thể dùng được';
+                document.getElementById('commitRegister').disabled = false;
+            }
+            else {
+                document.getElementById('message').style.visibility = "visible";
+                document.getElementById('message').className = "alert alert-warning";
+                document.getElementById('messageText').innerText = 'Rất tiếc email này đã tồn tại, hãy thử email khác';
+                document.getElementById('commitRegister').disabled = true;
             }
         }
     })

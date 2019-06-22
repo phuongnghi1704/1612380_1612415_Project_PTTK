@@ -79,14 +79,14 @@ exports.get_Product_By_Id = id => {
 };
 
 //Get related product
-exports.get_Related_Products =  manufacturerObject =>{
-  return Product.find({manufacturer: manufacturerObject, isDeleted: false});
+exports.get_Related_Products =  categoryObject =>{
+  return Product.find({category: categoryObject, isDeleted: false});
 };
 
 
 //Search product with like name
 exports.search_name = (name) =>{
-   return Product.find({name: {$regex: name, $options: 'i'}});
+   return Product.find({isDeleted: false, name: {$regex: name, $options: 'i'}});
 };
 
 //Search product with price
@@ -94,12 +94,12 @@ exports.search_price = (price) =>{
     if(price == '1000_INF')
     {
         const range = price.split('_');
-        return Product.find({price: {$gte: range[0]*1000}});
+        return Product.find({isDeleted: false, price: {$gte: range[0]*1000}});
     }
     else
     {
         const range = price.split('_');
-        return Product.find({price: {$gte: range[0]*1000, $lte: range[1]*1000}});
+        return Product.find({isDeleted: false, price: {$gte: range[0]*1000, $lte: range[1]*1000}});
     }
 };
 
@@ -109,26 +109,26 @@ exports.search_name_price = (name, price) => {
     {
         const range = price.split('_');
         console.log(range[0]*1000);
-        return Product.find({name: {$regex: name, $options: 'i'}, price: {$gte: range[0]*1000}});
+        return Product.find({isDeleted: false,name: {$regex: name, $options: 'i'}, price: {$gte: range[0]*1000}});
     }
     else
     {
         const range = price.split('_');
-        return Product.find({name: {$regex: name, $options: 'i'}, price: {$gte: range[0]*1000, $lte: range[1]*1000}});
+        return Product.find({isDeleted: false, name: {$regex: name, $options: 'i'}, price: {$gte: range[0]*1000, $lte: range[1]*1000}});
     }
 };
 
 //Search product with name and category
 exports.search_name_category = (name, category) =>
 {
-  return Product.find({name:{$regex: name, $options: 'i'}, category: category});
+  return Product.find({isDeleted: false, name:{$regex: name, $options: 'i'}, category: category});
 };
 
 
 //Search product with name and manufacturer
 exports.search_name_manufacturer = (name, manufacturer) =>
 {
-    return Product.find({name:{$regex: name, $options: 'i'}, manufacturer: manufacturer});
+    return Product.find({isDeleted: false, name:{$regex: name, $options: 'i'}, manufacturer: manufacturer});
 };
 
 //Search product with price and category
@@ -136,12 +136,12 @@ exports.search_price_category = (price, category) => {
     if(price == '1000_INF')
     {
         const range = price.split('_');
-        return Product.find({category: category, price: {$gte: range[0]*1000}});
+        return Product.find({isDeleted: false, category: category, price: {$gte: range[0]*1000}});
     }
     else
     {
         const range = price.split('_');
-        return Product.find({category: category, price: {$gte: range[0]*1000, $lte: range[1]*1000}});
+        return Product.find({isDeleted: false, category: category, price: {$gte: range[0]*1000, $lte: range[1]*1000}});
     }
 };
 
@@ -150,18 +150,18 @@ exports.search_price_manufacturer = (price, manufacturer) => {
     if(price == '1000_INF')
     {
         const range = price.split('_');
-        return Product.find({manufacturer: manufacturer, price: {$gte: range[0]*1000}});
+        return Product.find({isDeleted: false, manufacturer: manufacturer, price: {$gte: range[0]*1000}});
     }
     else
     {
         const range = price.split('_');
-        return Product.find({manufacturer: manufacturer, price: {$gte: range[0]*1000, $lte: range[1]*1000}});
+        return Product.find({isDeleted: false, manufacturer: manufacturer, price: {$gte: range[0]*1000, $lte: range[1]*1000}});
     }
 };
 
 //Search product with category and manufacturer
 exports.search_category_manufacturer = (category, manufacturer) => {
-    return Product.find({category: category, manufacturer: manufacturer});
+    return Product.find({isDeleted: false, category: category, manufacturer: manufacturer});
 };
 
 
@@ -171,12 +171,12 @@ exports.search_name_price_category = (name, price, category) => {
     if(price == '1000_INF')
     {
         const range = price.split('_');
-        return Product.find({name: {$regex: name, $options: 'i'}, price: {$gte: range[0]}, category: category});
+        return Product.find({isDeleted: false, name: {$regex: name, $options: 'i'}, price: {$gte: range[0]}, category: category});
     }
     else
     {
         const range = price.split('_');
-        return Product.find({name: {$regex: name, $options: 'i'}, price: {$gte: range[0]*1000, $lte: range[1]*1000}, category: category});
+        return Product.find({isDeleted: false, name: {$regex: name, $options: 'i'}, price: {$gte: range[0]*1000, $lte: range[1]*1000}, category: category});
     }
 };
 
@@ -186,18 +186,18 @@ exports.search_name_price_manufacturer = (name, price, manufacturer) => {
     if(price == '1000_INF')
     {
         const range = price.split('_');
-        return Product.find({name: {$regex: name, $options: 'i'}, price: {$gte: range[0]}, manufacturer: manufacturer});
+        return Product.find({isDeleted: false, name: {$regex: name, $options: 'i'}, price: {$gte: range[0]}, manufacturer: manufacturer});
     }
     else
     {
         const range = price.split('_');
-        return Product.find({name: {$regex: name, $options: 'i'}, price: {$gte: range[0], $lte: range[1]}, manufacturer: manufacturer});
+        return Product.find({isDeleted: false, name: {$regex: name, $options: 'i'}, price: {$gte: range[0], $lte: range[1]}, manufacturer: manufacturer});
     }
 };
 
 //Search product with name category manufacturer
 exports.search_name_category_manufacturer = (name, category, manufacturer) => {
-  return Product.find({name: {$regex: name, $options: 'i'}, category: category, manufacturer: manufacturer});
+  return Product.find({isDeleted: false, name: {$regex: name, $options: 'i'}, category: category, manufacturer: manufacturer});
 };
 
 //Search product with price category manufacturer
@@ -205,12 +205,12 @@ exports.search_price_category_manufacturer = (price, category, manufacturer) => 
     if(price == '1000_INF')
     {
         const range = price.split('_');
-        return Product.find({price: {$gte: range[0]*1000}, category: category, manufacturer: manufacturer});
+        return Product.find({isDeleted: false, price: {$gte: range[0]*1000}, category: category, manufacturer: manufacturer});
     }
     else
     {
         const range = price.split('_');
-        return Product.find({price: {$gte: range[0]*1000, $lte: range[1]*1000}, category: category, manufacturer: manufacturer});
+        return Product.find({isDeleted: false, price: {$gte: range[0]*1000, $lte: range[1]*1000}, category: category, manufacturer: manufacturer});
     }
 };
 
@@ -219,11 +219,11 @@ exports.search_name_price_category_manufacturer = (name, price, category, manufa
     if(price == '1000_INF')
     {
         const range = price.split('_');
-        return Product.find({name: {$regex: name, $options: 'i'}, price: {$gte: range[0]*1000}, category: category, manufacturer: manufacturer});
+        return Product.find({isDeleted: false, name: {$regex: name, $options: 'i'}, price: {$gte: range[0]*1000}, category: category, manufacturer: manufacturer});
     }
     else
     {
         const range = price.split('_');
-        return Product.find({name: {$regex: name, $options: 'i'}, price: {$gte: range[0]*1000, $lte: range[1]*1000}, category: category, manufacturer: manufacturer});
+        return Product.find({isDeleted: false, name: {$regex: name, $options: 'i'}, price: {$gte: range[0]*1000, $lte: range[1]*1000}, category: category, manufacturer: manufacturer});
     }
 };

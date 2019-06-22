@@ -24,8 +24,8 @@ const productSchema = new Schema({
     isDeleted: Boolean,
     releaseDate: {type: Date},
     viewed: {type: Number, default: 0},
-    sale: {type: Number, default: 0}
-
+    sale: {type: Number, default: 0},
+    size: {type: Number, default: 0}//44 -> 36
 });
 
 const Product = mongoose.model('Product', productSchema);

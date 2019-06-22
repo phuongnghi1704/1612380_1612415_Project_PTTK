@@ -14,7 +14,7 @@ const session = require('express-session');
 const jquery = require('jquery');
 //Set up mongoose connection
 var mongoose = require('mongoose');
-const mongoDB = 'mongodb+srv://admin:123@cluster0-apxng.mongodb.net/test';
+var mongoDB = 'mongodb+srv://admin:123@cluster0-apxng.mongodb.net/test';
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));

@@ -6,7 +6,7 @@ exports.get_Order = () =>{
 };
 
 exports.get_Order_By_ID = id => {
-  return Order.findById(id);
+  return Order.findById(id).populate('customer');
 };
 
 exports.get_CustomerInfo_By_ID = async id => {
@@ -18,6 +18,6 @@ exports.get_ReceiverInfo_By_ID = async id => {
   return await Order.findById(id,'name address email sdt');
 };
 
-/*exports.get_Cart_By_ID = id =>{
-  return Order.findById(id,'cart');
-};*/
+exports.get_Cart_By_ID = async id =>{
+  return await Order.findById(id,'cart');
+};

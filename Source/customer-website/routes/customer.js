@@ -10,7 +10,8 @@ router.get('/register',customerController.customer_register_get);
 
 //POST register
 router.post('/register',customerController.customer_register_post);
-router.post('/register/checkUsername',customerController.customer_check_username);
+router.post('/register/check-username-available',customerController.customer_check_username);
+router.post('/register/check-email-available', customerController.customer_check_email);
 
 //VERIFY
 router.post('/verify',customerController.customer_verify_post);
