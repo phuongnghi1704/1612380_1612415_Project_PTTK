@@ -79,7 +79,7 @@ exports.checkout_post = function(req, res){
         res.redirect('/cart');
     }
     const cart = new Cart(req.session.cart);
-    const stripe = require("stripe")("sk_test_TKy5X1aloFTTY5OBnagOvw7600dk5Ak6Tw");
+    const stripe = require("stripe")("sk_test_3EVkoFkVB4cGAcpUkgtOW90u00oeG0qwzh");
 
     stripe.charges.create({
         amount: cart.totalPrice,
@@ -239,7 +239,7 @@ exports.customer_register_post = async function(req, res){
             Cám ơn vì đã tạo tài khoản.
             Tên đăng nhập của bạn là: ${customer.username}       
             Vui lòng xác thực email bằng cách nhập đoạn mã:  ${secretToken}
-            Vào trang: https://website-customer.herokuapp.com/verify
+            Vào trang: www.localhost:3000/verify
             Chúc một ngày tốt lành.`;
             sendMail(customer.email,'Verify',html,function(err,data){
                 if (err) throw err;
@@ -286,7 +286,6 @@ exports.customer_verify_post= async function (req,res,next) {
     if(!customer) {
         req.flash('error','Không thấy người dùng');
         res.redirect('verify');
-        return;
     }
 
     customer.isActive=true;
@@ -319,7 +318,7 @@ exports.customer_resetPassword = async function(req, res) {
             if (err) throw err
             else{ const html=`Chào bạn,   
             Tên đăng nhập của bạn là: ${customer.username}       
-            Vui lòng vào trang: http://website-customer.herokuapp.com/resetPassword/${resetToken} để cài đặt lại password mới
+            Vui lòng vào trang: www.localhost:3000/resetPassword/${resetToken} để cài đặt lại password mới
             Chúc một ngày tốt lành.`
             sendMail(customer.email,'Reset mật khẩu',html,function(err,data){
                 if (err) throw err;

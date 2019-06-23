@@ -33,10 +33,10 @@ body { font-family:Roboto Condensed, Helvetica, sans-serif; }
 
 
 .header-area {
-    background: none repeat scroll 0 0 #dbdddf;
+    background: none repeat scroll 0 0 #000;
 }
 .header-area a {
-    color: #5a88ca;
+    color: #fff;
 }
 .user-menu ul {
     list-style: outside none none;
@@ -370,7 +370,7 @@ z-index: 999;}
   font-weight: 400;
   margin-bottom: 50px;
   text-align: center;
-  color: #5a88ca
+  color: #ae2b29
 }
 
 
@@ -414,7 +414,7 @@ z-index: 999;}
   text-decoration: none;border-color: #444;
 }
 .product-carousel-price ins {
-  color: #5a88ca;
+  color: #ae2b29;
   font-weight: 700;
   margin-right: 5px;
   text-decoration: none;
@@ -497,7 +497,7 @@ z-index: 999;}
   font-size: 30px;
   font-weight: 500;
   margin-bottom: 40px;
-  color:#5a88ca;
+  color:#000;
 }
 
 
@@ -520,7 +520,7 @@ z-index: 999;}
     margin-bottom: 10px;
 }
 .product-wid-price ins {
-    color: #5a88ca;
+    color: #ae2b29;
     font-weight: 700;
     margin-right: 10px;
     text-decoration: none;
@@ -530,7 +530,7 @@ z-index: 999;}
     color: #222;
 }
 .single-wid-product h2 a:hover, .single-product h2 a:hover {
-    color: #5a88ca;
+    color: #ae2b29;
 }
 .wid-view-more {
     border-radius: 10px;
@@ -558,7 +558,7 @@ padding: 35px 0 180px;}
 
 .footer-bottom-area {background: #000;color: #fff}
 .footer-about-us span {
-  color: #5a88ca;
+  color: #fff;
 }
 .footer-wid-title {
   font-family: Roboto Condensed;
@@ -586,7 +586,7 @@ padding: 35px 0 180px;}
 
 .footer-social a {
   background: none repeat scroll 0 0;
-  color: #5a88ca;
+  color: #fff;
   display: inline-block;
   font-size: 20px;
   height: 40px;
@@ -594,7 +594,7 @@ padding: 35px 0 180px;}
   margin-right: 10px;
   padding-top: 5px;
   text-align: center;
-  width: 40px;border: 1px solid #5a88ca;
+  width: 40px;border: 1px solid #fff;
 }
 
 .footer-social a:hover {background-color: #222;border-color: #666}
@@ -610,19 +610,19 @@ padding: 35px 0 180px;}
     width: 100%;
 }
 .newsletter-form input[type="submit"] {
-    background: none repeat scroll 0 0 #5a88ca;
+    background: none repeat scroll 0 0 #ae2b29;
     border: medium none;
     color: #fff;
     display: inline-block;
     font-size: 18px;
     padding: 7px 20px;
-    text-transform: uppercase;border: 1px solid #5a88ca;
+    text-transform: uppercase;border: 1px solid #ae2b29;
 }
 .newsletter-form input[type="submit"]:hover {background: #222;border-color: #666}
 .newsletter-form {
     margin-top: 25px;
 }
-a {color: #5a88ca}
+a {color: #000}
 a:hover, a:focus {color: #17a78b}
 .footer-bottom-area {
   background: none repeat scroll 0 0 #000;
@@ -717,7 +717,7 @@ input[type="text"], input[type="password"], input[type="email"], textarea {
     padding: 10px;
 }
 input[type="submit"], button[type=submit] {
-    background: none repeat scroll 0 0#007bff;
+    background: none repeat scroll 0 0#ae2b29;
     border: medium none;
     color: #fff;
     padding: 11px 20px;
@@ -746,7 +746,7 @@ input[type="submit"]:hover, button[type=submit]:hover {background-color: #222}
     color: #222;
 }
 .product-sidebar-price > ins {
-    color: #5a88ca;
+    color: #ae2b29;
     font-weight: 700;
     margin-right: 10px;
     text-decoration: none;
@@ -800,7 +800,7 @@ input[type="submit"]:hover, button[type=submit]:hover {background-color: #222}
     margin-bottom: 25px;
 }
 .product-inner-price > ins {
-    color: #5a88ca;
+    color:#ae2b29ca;
     font-weight: 700;
     margin-right: 10px;
     text-decoration: none;
@@ -810,12 +810,12 @@ input[type="submit"]:hover, button[type=submit]:hover {background-color: #222}
     margin-right: 15px;
 }
 .quantity input[type="number"] {
-    border: 1px solid #5a88ca;
+    border: 1px solid #ae2b29;
     padding: 5px;
     width: 50px;
 }
 .add_to_cart_button {
-    background: none repeat scroll 0 0 #5a88ca;
+    background: none repeat scroll 0 0 #ae2b29;
     border: medium none;
     color: #fff;
     padding: 6px 25px;display: inline-block
@@ -838,7 +838,7 @@ form.cart {
     display: inline-block;
 }
 .product-tab li.active {
-    background: none repeat scroll 0 0 #5a88ca;
+    background: none repeat scroll 0 0 #ae2b29;
 }
 .product-tab li.active a {
     color: #fff;
@@ -923,7 +923,7 @@ td.product-name {
     font-size: 18px;
 }
 div.quantity input.plus, div.quantity input.minus {
-    background: none repeat scroll 0 0 #5a88ca;
+    background: none repeat scroll 0 0 #ae2b29;
     border: medium none;
     color: #fff;
     height: 25px;
@@ -951,7 +951,7 @@ td.actions div.coupon {
     width: 40%;
 }
 .cart-collaterals h2 {
-    color: #5a88ca;
+    color: #ae2b29;
     font-size: 25px;
     margin-bottom: 25px;
     text-transform: uppercase;
@@ -983,7 +983,7 @@ div.cart-collaterals ul.products li.product {
 .onsale {
 }
 div.cart-collaterals ul.products li.product .onsale {
-    background: none repeat scroll 0 0 #5a88ca;
+    background: none repeat scroll 0 0 #ae2b29;
     color: #fff;
     padding: 5px 10px;
     position: absolute;
@@ -1191,7 +1191,7 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
 .block-slider .title{
     display: flex;
     justify-content: center;
-    color:#5a88ca;
+    color:#ae2b29;
     font-weight: 700;
     text-decoration: none;
     margin-top: 10px;
