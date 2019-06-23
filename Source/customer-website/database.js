@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongoDB = 'mongodb+srv://dragon-straight:8910JQKA@cluster0-dqpzz.mongodb.net/e-commerce';
+const mongoDB = 'mongodb+srv://admin:123@cluster0-apxng.mongodb.net/test';
 
 const Product = require('./models/product');
 const Category = require('./models/category');
@@ -101,7 +101,9 @@ mongoose.connect(mongoDB, function(error){
         name: 'Pan Balancer Touch X TF (Đỏ)',
         manufacturer: Pan,
         category: TF,
-        img: 'img/Pan-Balancer-Touch-X-TF-(Đỏ).jpg',
+        img1: 'img/Pan-Balancer-Touch-X-TF-(Đỏ).jpg',
+        img2: 'img/Pan-Balancer-Touch-X-TF-(Đỏ).jpg',
+        img3: 'img/Pan-Balancer-Touch-X-TF-(Đỏ).jpg',
         price: 640000,
         status: true,
         info:'Giày Futsal Pan Balancer Touch X là dòng giày thuộc phân khúc trung cấp của hãng Pan Thái Lan. Đây là một trong các sản phẩm giày đá banh có thiết kế đột phá hơn so với các sản phẩm được hãng sản xuất trước đó. Phần upper giày Pan Balancer Touch X được thiết kế với công nghệ Dynamic Skin tạo nên lớp da mềm mại và rất ôm chân hỗ trợ kiểm soát bóng, giúp cảm giác bóng chân thật hơn. Thêm vào đó là trọng lượng giày khá nhẹ kết hợp với phần Fit collar, nối liền thân giày với lưỡi gà nhằm hạn chế xô dịch lưỡi gà khi di chuyển cũng như đem lại sự vừa vặn và ôm chân tốt hơn. Phần đế được thiết kế từ chất liệu cao su tự nhiên cao cấp gồm nhiều đinh nhỏ hình lục giác có độ cao vừa phải sẽ tạo độ bám và ma sát tốt với bề mặt tiếp xúc, tránh trơn trượt ngay cả khi bạn chạy trên sân cỏ; đồng thời hỗ trợ tuyệt vời cho những pha xử lý bóng bằng gầm giầy, những cú ngoặt bóng siêu nhanh.\n' +
@@ -128,7 +130,9 @@ mongoose.connect(mongoDB, function(error){
         name: 'Pan Balancer Touch X TF (Đen)',
         manufacturer: Pan,
         category: TF,
-        img: 'img/Pan-Balancer-Touch-X-TF-(Đen).jpg',
+        img1: 'img/Pan-Balancer-Touch-X-TF-(Đen).jpg',
+        img2: 'img/Pan-Balancer-Touch-X-TF-(Đen).jpg',
+        img3: 'img/Pan-Balancer-Touch-X-TF-(Đen).jpg',
         price: 640000,
         status: true,
         info:'Giày Futsal Pan Balancer Touch X là dòng giày thuộc phân khúc trung cấp của hãng Pan Thái Lan. Đây là một trong các sản phẩm giày đá banh có thiết kế đột phá hơn so với các sản phẩm được hãng sản xuất trước đó. Phần upper giày Pan Balancer Touch X được thiết kế với công nghệ Dynamic Skin tạo nên lớp da mềm mại và rất ôm chân hỗ trợ kiểm soát bóng, giúp cảm giác bóng chân thật hơn. Thêm vào đó là trọng lượng giày khá nhẹ kết hợp với phần Fit collar, nối liền thân giày với lưỡi gà nhằm hạn chế xô dịch lưỡi gà khi di chuyển cũng như đem lại sự vừa vặn và ôm chân tốt hơn. Phần đế được thiết kế từ chất liệu cao su tự nhiên cao cấp gồm nhiều đinh nhỏ hình lục giác có độ cao vừa phải sẽ tạo độ bám và ma sát tốt với bề mặt tiếp xúc, tránh trơn trượt ngay cả khi bạn chạy trên sân cỏ; đồng thời hỗ trợ tuyệt vời cho những pha xử lý bóng bằng gầm giầy, những cú ngoặt bóng siêu nhanh.\n' +
@@ -154,7 +158,9 @@ mongoose.connect(mongoDB, function(error){
         name: 'Pan Vigor 8 IC (Cam)',
         manufacturer: Pan,
         category: IC,
-        img: 'img/Pan-Vigor-8-IC-(Cam).jpg',
+        img1: 'img/Pan-Vigor-8-IC-(Cam).jpg',
+        img2: 'img/Pan-Vigor-8-IC-(Cam).jpg',
+        img3: 'img/Pan-Vigor-8-IC-(Cam).jpg',
         price: 460000,
         status: true,
         info: 'Giày Futsal Vigor 8 IC là một trong những sản phẩm mới thuộc phân khúc tầm trung được Pan Thailand ra mắt trong năm 2019. Vẫn là kiểu dáng chuẩn của dòng Vigor, kế thừa những ưu điểm của các dòng Pan Vigor 6, Pan Vigor 7, Pan Vigor 7.1, Pan Vigor Zero,... kết hợp với chất liệu nhẹ, ôm gọn chân và tạo cảm giác rất linh hoạt khi di chuyển. Phiên bản lần này được thiết kế đơn giản với chất liệu da tổng hợp gồm các họa tiết dập nổi ở phần thân giày tạo độ ma sát lớn giúp việc kiểm soát bóng dễ dàng hơn. Bên cạnh đó, phần đế làm từ cao su tổng hợp khá mềm, được bố trí vân tròn hỗ trợ xoay chuyển, đường sóng và các ô cao su có hình dạng khác nhau tạo sự cân bằng, tạo độ bám khi di chuyển hoặc bứt tốc theo các hướng khác nhau.\n' +
@@ -182,7 +188,9 @@ mongoose.connect(mongoDB, function(error){
         name: 'Pan Vigor 8 IC (Dạ)',
         manufacturer: Pan,
         category: IC,
-        img: 'img/Pan-Vigor-8-IC-(Dạ).jpg',
+        img1: 'img/Pan-Vigor-8-IC-(Dạ).jpg',
+        img2: 'img/Pan-Vigor-8-IC-(Dạ).jpg',
+        img3: 'img/Pan-Vigor-8-IC-(Dạ).jpg',
         price: 460000,
         status: true,
         info: 'Giày Futsal Vigor 8 IC là một trong những sản phẩm mới thuộc phân khúc tầm trung được Pan Thailand ra mắt trong năm 2019. Vẫn là kiểu dáng chuẩn của dòng Vigor, kế thừa những ưu điểm của các dòng Pan Vigor 6, Pan Vigor 7, Pan Vigor 7.1, Pan Vigor Zero,... kết hợp với chất liệu nhẹ, ôm gọn chân và tạo cảm giác rất linh hoạt khi di chuyển. Phiên bản lần này được thiết kế đơn giản với chất liệu da tổng hợp gồm các họa tiết dập nổi ở phần thân giày tạo độ ma sát lớn giúp việc kiểm soát bóng dễ dàng hơn. Bên cạnh đó, phần đế làm từ cao su tổng hợp khá mềm, được bố trí vân tròn hỗ trợ xoay chuyển, đường sóng và các ô cao su có hình dạng khác nhau tạo sự cân bằng, tạo độ bám khi di chuyển hoặc bứt tốc theo các hướng khác nhau.\n' +
@@ -210,7 +218,9 @@ mongoose.connect(mongoDB, function(error){
         name: 'Nike Mercurial Victory 5 FG (Hồng đen)',
         manufacturer: Nike,
         category: FG,
-        img: 'img/Nike-Mercurial-Victory-5-FG-(Hồng-đen).jpg',
+        img1: 'img/Nike-Mercurial-Victory-5-FG-(Hồng-đen).jpg',
+        img2: 'img/Nike-Mercurial-Victory-5-FG-(Hồng-đen).jpg',
+        img3: 'img/Nike-Mercurial-Victory-5-FG-(Hồng-đen).jpg',
         price: 1290000,
         status: true,
         info: 'Giày Nike Mercurial có thiết kế ôm chân cảm giác bóng tốt, khối lượng tương đối nhẹ. Là sản phầm phù hợp cho các cầu thủ đam mê tốc độ.\n' +
@@ -237,7 +247,9 @@ mongoose.connect(mongoDB, function(error){
         name: 'Nike Hypervenom FG (Biển cam)',
         manufacturer: Nike,
         category: FG,
-        img: 'img/Nike-Hypervenom-FG-(Biển-cam).jpg',
+        img1: 'img/Nike-Hypervenom-FG-(Biển-cam).jpg',
+        img2: 'img/Nike-Hypervenom-FG-(Biển-cam).jpg',
+        img3: 'img/Nike-Hypervenom-FG-(Biển-cam).jpg',
         price: 990000,
         status: true,
         info: 'Dòng Nike Hypervenom I II là cũng là 1 dòng chủ lực của Nike Soccer. Nổi bật với kiểu dáng không quá ôm, thấp và nhẹ hỗ trợ kiểm soát tốt cho các tuyển thủ.\n' +
@@ -263,7 +275,10 @@ mongoose.connect(mongoDB, function(error){
         name: 'Adidas X 16.3 TF (Trắng đồng)',
         manufacturer: Adidas,
         category: TF,
-        img: 'img/Adidas-X-16.3-TF-(Trắng-đồng).jpg',
+        img1: 'img/Adidas-X-16.3-TF-(Trắng-đồng).jpg',
+        img2: 'img/Adidas-X-16.3-TF-(Trắng-đồng).jpg',
+        img3: 'img/Adidas-X-16.3-TF-(Trắng-đồng).jpg',
+
         price: 1650000,
         status: true,
         info: 'Giày Adidas X 16.3 nằm trong bộ sưu tập Stellar Pack được ra mắt vào tháng 7/2016 của hãng Adidas. Với trọng lượng nhẹ, giày được xem là giày bóng đá tốc độ- speed boot của dòng Football X cũng như là dòng giày chủ đạo của hãng. Phiên bản lần này vẫn là chất liệu da tổng hợp, vẫn giữ nguyên form dáng của dòng X 16 và phần cổ cao đặc trưng nhưng phần thân giày được thiết kế lại với họa tiết độc đáo nhằm mang đến diện mạo mới mẻ cho giày. Phần lưỡi gà là chất liệu thun nối liền với phần cổ giày nhằm cố định phần lưỡi gà hạn chế vấn đề xô dịch lưỡi gà khi di chuyển và phần cổ giày không quá cao giúp bảo vệ vùng mắt cá chân, hạn chế các chấn thương không đáng có. Ngoài ra, công nghệ Techfit kết hợp với phần trong thân giày là một lớp layer dạng sợi nên giày có độ ôm chân, loại bỏ mọi khoảng trống giữa chân và giày giúp cầu thủ tự tin chơi bóng. Bên cạnh đó, mặt đế được thiết kế với các khối đinh thấp và có kích thước khác nhau nhằm tăng khả năng ma sát với bề mặt sân giúp cho các tình huống tranh chấp trở nên vững chắc và không bị trơn trượt. \n' +
@@ -291,7 +306,10 @@ mongoose.connect(mongoDB, function(error){
         name: 'Adidas Copa Tango 17.1 IC (Đen)',
         manufacturer: Adidas,
         category: IC,
-        img: 'img/Adidas-Copa-Tango-17.1-IC-(Đen).jpg',
+        img1: 'img/Adidas-Copa-Tango-17.1-IC-(Đen).jpg',
+        img2: 'img/Adidas-Copa-Tango-17.1-IC-(Đen).jpg',
+        img3: 'img/Adidas-Copa-Tango-17.1-IC-(Đen).jpg',
+
         price: 1790000,
         status: true,
         info: 'Giày Adidas Copa Tango 17.1 là một trong những thế hệ tiếp nối của dòng Copa và vừa được hãng Adidas ra mắt vào tháng 11/2016. Giày được thiết kế với bề mặt da Kangaroo cho nửa trên thân giày mang lại cảm giác mềm mại, thoải mái cho đôi chân và có thể cảm nhận được sự khác biệt khi lần đầu chạm vào. Phần gót là da tổng hợp và phần lưỡi gà được sử dụng chất liệu vải lưới có độ co dãn, một phần dính liền với phần đế cũng như được thiết kế dài hơn những phiên bản trước giúp giữ ổn định, hạn chế xô dịch lưỡi gà khi di chuyển và bảo vệ tối đa cho bàn chân. Ngoài ra, phần mũi giày được bao bọc xung quanh bởi một lớp da Simili chồng lên trên bảo vệ các đầu ngón chấn khi sút bóng hoặc tranh chấp bóng đồng thời tạo độ chắc chắn và tăng tuổi thọ cho giày, hạn chế bong tróc ở phần mũi. Phần đế giày có hình dạng hai lớp đế do được tăng cường thêm bộ đệm Boost có khả năng đàn hồi cực tốt và mặt đế được bố trí các xoáy tròn có dạng lục giác phía trên để kết nối các rãnh hình thoi nhằm tăng khả năng xoay chuyển, tạo độ bám sân khi chạy và bức tốc.\n' +
@@ -319,7 +337,10 @@ mongoose.connect(mongoDB, function(error){
         name: 'Adidas Nemeziz 18.3 FG SF (Biển đỏ)',
         manufacturer: Adidas,
         category: FG,
-        img: 'img/Adidas-Nemeziz-18.3-FG-SF-(Biển-đỏ).jpg',
+        img1: 'img/Adidas-Nemeziz-18.3-FG-SF-(Biển-đỏ).jpg',
+        img2: 'img/Adidas-Nemeziz-18.3-FG-SF-(Biển-đỏ).jpg',
+        img3: 'img/Adidas-Nemeziz-18.3-FG-SF-(Biển-đỏ).jpg',
+
         price: 540000,
         status: true,
         info: 'Giày Adidas Messi Nemeziz Tango 18.3 là giày đá banh sân cỏ tự nhiên thế hệ mới mang lại cảm giác ôm chân và thoải mái nhất từ trước tới nay của Adidas được ra mắt trong năm 2018. Toàn bộ thân giày được thiết kế vô cùng bắt mắt, đồng thời ở phiên bản mới này, phần thân giày sử dụng chất liệu da tổng hợp kiểu mới cực kì ôm chân, phần lưỡi gà được tối giản thành một khối liền mạch, giúp tăng cảm giác bóng, hỗ trợ xử lý bóng tốt hơn. Phần cổ giày khi mang không có cảm giác khó căng tức. Đồng thời, trọng lượng giày được giảm thiểu hơn so với các phiên bản tiền nhiệm và hệ thống đinh giày được bố trí rất  khoa học nhằm hỗ trợ xoay chuyển, giữ thăng bằng và bức tốc tốt.\n' +
@@ -346,7 +367,10 @@ mongoose.connect(mongoDB, function(error){
         name: 'Nike MercurialX Superfly 6 FG SF (Dạ đen)',
         manufacturer: Nike,
         category: FG,
-        img: 'img/Nike-MercurialX-Superfly-6-FG-SF-(Dạ-đen).jpg',
+        img1: 'img/Nike-MercurialX-Superfly-6-FG-SF-(Dạ-đen).jpg',
+        img2: 'img/Nike-MercurialX-Superfly-6-FG-SF-(Dạ-đen).jpg',
+        img3: 'img/Nike-MercurialX-Superfly-6-FG-SF-(Dạ-đen).jpg',
+
         price: 540000,
         status: true,
         info: 'Giày Nike Mercurial Victory 6 là siêu phẩm đời thứ 6 nằm trong bộ sưu tập Radiation Flare Pack được Nike ra mắt vào đầu năm 2017 và là sản phẩm chủ lực của hãng. Giày vẫn giữ nguyên form dáng của dòng Mercurial tiền nhiệm nhưng được bổ sung nhiều tính năng để tăng tính linh hoạt và bứt phá tốc độ. Toàn bộ thân giày là chất liệu da tổng hợp mềm mại giúp giảm trọng lượng giày, tạo cảm giác bóng cực kì tốt, nâng cao khả năng kiểm soát bóng. Phần lưỡi gà liền mạch với thân giày giúp hạn chế việc xê dịch lưỡi gà khi di chuyển. Đồng thời, cấu đế chắc chắn hơn giúp các cầu thủ tự tin hơn trong nhưng pha bóng tranh chấp.\n' +
@@ -403,37 +427,7 @@ mongoose.connect(mongoDB, function(error){
         console.log('Customer successfully saved');
     });
 
-    const mvcOrder = new Order({
-       _id: new mongoose.Types.ObjectId(),
-       infoCustomer: {
-           name: 'Lưu Tuấn Nguyên',
-           address: '170 Giang Tô',
-           sdt: '12345678',
-           email: 'nguyenluu211198@gmail.com',
-       },
-        payment: 'Ship COD',
-        totalPrice: 500000,
-        created: new Date('2019-05-01'),
-        productList: [
-            {
-                name: 'Adidas Messi',
-                price: 300000,
-                quantity: 1
-            },
-            {
-                name: 'Pan Vigor 8 TF',
-                price: 200000,
-                quantity: 1
-            }
-        ],
-        isDeleted: 0,
-        status: 'Đã giao'
-    });
-
-    mvcOrder.save(function (error) {
-        if(error) throw error;
-        console.log('Order successfully saved');
-    });
+    
 
     
 });
